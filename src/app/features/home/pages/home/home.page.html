@@ -1,0 +1,78 @@
+<section class="position-relative min-vh-100 overflow-hidden d-flex align-items-center hero-container">
+
+  <img src="img/selva3.png" alt="Selva Bella Durmiente" class="hero-bg-image">
+  <div class="hero-overlay"></div>
+
+  <div class="container position-relative z-1 text-center text-white py-5">
+    <div class="row justify-content-center">
+
+      <div class="col-12 col-md-10 col-lg-8 mb-3">
+        <h1 class="display-4 fw-bold text-shadow">Explora la Bella Durmiente</h1>
+      </div>
+
+      <div class="col-12 col-md-9 col-lg-7 mb-5">
+        <p class="lead text-shadow opacity-95">
+          Descubre cataratas cristalinas, cuevas misteriosas y la magia inexplorada de Tingo María.
+        </p>
+      </div>
+
+      <div class="col-12 col-md-10 col-lg-8 d-flex justify-content-center">
+        <div class="search-bar-container bg-white rounded-pill d-flex align-items-center p-2 shadow w-100">
+          <i class="bi bi-search text-muted ms-3 me-2 fs-5"></i>
+          <input type="text" class="form-control border-0 bg-transparent text-muted px-2 shadow-none"
+            placeholder="Buscar lugares, cataratas, cuevas...">
+          <button class="btn btn-dark-green rounded-pill px-5 py-2 fw-medium">Buscar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="bg-white py-5">
+  <div class="container">
+
+    <div class="row mb-4">
+      <div class="col-12 d-flex flex-wrap gap-2 align-items-center">
+        <button class="btn btn-filter active"><i class="bi bi-grid-fill me-1"></i> Todos</button>
+        <button class="btn btn-filter"><i class="bi bi-tree-fill me-1"></i> Naturaleza</button>
+        <button class="btn btn-filter"><i class="bi bi-droplet-fill me-1"></i> Cataratas</button>
+        <button class="btn btn-filter"><i class="bi bi-moon-stars-fill me-1"></i> Cuevas</button>
+        <button class="btn btn-filter"><i class="bi bi-eye-fill me-1"></i> Miradores</button>
+        <button class="btn btn-filter"><i class="bi bi-egg-fried me-1"></i> Gastronomía</button>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-12">
+        <h2 class="fw-bold text-dark-green">Destinos Imperdibles</h2>
+      </div>
+    </div>
+
+    <div class="row g-4">
+
+      @for (destino of destinos; track destino.id) {
+      <div class="col-12 col-md-6">
+        <div class="card destination-card border-0 overflow-hidden shadow-sm position-relative">
+
+          <img [src]="destino.imagen" [alt]="destino.titulo" class="card-img-top destination-img">
+
+          <button class="btn btn-heart position-absolute top-0 end-0 m-3 shadow-sm">
+            <i class="bi" [ngClass]="destino.esFavorito ? 'bi-heart-fill text-danger' : 'bi-heart'"></i>
+          </button>
+
+          <div class="card-body-overlay position-absolute bottom-0 start-0 w-100 p-4 m-3 bg-white-blur rounded-4">
+            <span class="badge mb-2" [ngClass]="destino.claseCategoria">{{ destino.categoria }}</span>
+            <h4 class="card-title fw-bold m-0 text-dark-green">{{ destino.titulo }}</h4>
+            <p class="card-text text-muted small mt-1 mb-0">
+              <i class="bi bi-geo-alt-fill me-1"></i> {{ destino.ubicacion }}
+            </p>
+          </div>
+
+        </div>
+      </div>
+      }
+
+    </div>
+  </div>
+</section>

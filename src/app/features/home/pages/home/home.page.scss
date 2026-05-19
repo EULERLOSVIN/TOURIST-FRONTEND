@@ -1,0 +1,163 @@
+/* ==========================================================================
+   1. CONFIGURACIÓN GENERAL Y VARIABLES LOCALES
+   ========================================================================== */
+.hero-container {
+  padding-top: 72px; /* Evita que el header fijo tape el inicio de la sección */
+}
+
+.z-1 {
+  z-index: 1; /* Eleva el contenido del Grid por encima del fondo y overlay */
+}
+
+/* Sombras base para mejorar legibilidad del texto sobre nubes/fondos claros */
+.text-shadow {
+  text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Colores institucionales de TingoGo */
+.text-dark-green {
+  color: #072a1a;
+}
+
+
+/* ==========================================================================
+   2. SECCIÓN PORTADA (HERO BACKGROUND & OVERLAY)
+   ========================================================================== */
+/* Transforma la etiqueta <img> del HTML en un fondo de pantalla completa */
+.hero-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+// /* Capa oscura que genera el desvanecido blanco hacia abajo (Fiel a tu diseño) */
+// .hero-overlay {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 50%, rgba(255, 255, 255, 1) 100%);
+//   z-index: 0;
+// }
+
+/* Botón de buscar dentro del input */
+.btn-dark-green {
+  background-color: #072a1a;
+  color: #ffffff;
+  border: none;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-dark-green:hover {
+  background-color: #0c3823;
+  color: #ffffff;
+  transform: scale(1.01);
+}
+
+
+/* ==========================================================================
+   3. BOTONES DE FILTROS (PILLS)
+   ========================================================================== */
+.btn-filter {
+  background-color: #e9ecef;
+  color: #495057;
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+/* Estado activo y hover cambian al verde de la marca */
+.btn-filter:hover, 
+.btn-filter.active {
+  background-color: #0c3823;
+  color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   4. ESTRUCTURA Y SIMETRÍA DE TARJETAS (DESTINOS)
+   ========================================================================== */
+.destination-card {
+  border-radius: 24px;
+  height: 380px; /* Crucial: Forzamos a que TODAS tengan exactamente la misma altura */
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Control de la imagen interna */
+.destination-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Evita que las imágenes se deformen al estirarse */
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Efecto de zoom suave al pasar el mouse por la tarjeta */
+.destination-card:hover .destination-img {
+  transform: scale(1.05);
+}
+
+
+/* ==========================================================================
+   5. COMPONENTES FLOTANTES INTERNOS (TARJETAS)
+   ========================================================================== */
+/* Cuadro flotante de información (Efecto Frosted Glass / Glassmorphism) */
+.bg-white-blur {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* Compatibilidad con Safari */
+  width: calc(100% - 2rem) !important; /* Margen simétrico a los costados */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* Botón flotante para favoritos (Corazón) */
+.btn-heart {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-heart:hover {
+  background-color: #ffffff;
+  transform: scale(1.1);
+}
+
+
+/* ==========================================================================
+   6. PALETA DE COLORES PARA BADGES (CATEGORÍAS)
+   ========================================================================== */
+.bg-success-dark { 
+  background-color: #0e4627; 
+  color: #ffffff; 
+}
+
+.bg-blue-dark { 
+  background-color: #0c4366; 
+  color: #ffffff; 
+}
+
+.bg-teal-dark { 
+  background-color: #115e59; 
+  color: #ffffff; 
+}
+
+.bg-olive-dark { 
+  background-color: #143d11; 
+  color: #ffffff; 
+}
