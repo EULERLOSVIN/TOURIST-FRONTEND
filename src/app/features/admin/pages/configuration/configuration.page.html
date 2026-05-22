@@ -1,0 +1,147 @@
+<div class="config-container">
+
+    <div class="dashboard-header mb-4">
+        <div class="header-info">
+            <h1 class="fw-extrabold text-dark-green tracking-tight mb-1">Configuración del Sistema</h1>
+            <p class="text-secondary m-0">Controla el contenido de la portada principal, parámetros globales y estados
+                de la plataforma.</p>
+        </div>
+    </div>
+
+    <div class="config-grid">
+
+        <div class="config-column d-flex flex-column gap-4">
+
+            <div class="config-card p-4 bg-white border rounded-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-window-sidebar text-turquesa"></i> Contenido de la Portada Principal
+                </h5>
+
+                <form (submit)="$event.preventDefault()" class="d-flex flex-column gap-3">
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Título Principal (Hero Slangan)</label>
+                        <input type="text" class="form-control config-control shadow-none"
+                            value="Descubre la magia de Tingo María">
+                    </div>
+
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Subtítulo / Descripción Corta</label>
+                        <textarea class="form-control config-control shadow-none"
+                            rows="2">Explora cataratas misteriosas, cuevas ancestrales y vive la aventura en la selva peruana.</textarea>
+                    </div>
+
+                    <div>
+                        <label class="form-label text-secondary small fw-bold d-block">Imagen de Fondo Banner</label>
+                        <div class="banner-preview-box border rounded-3 position-relative mb-2 overflow-hidden">
+                            <div
+                                class="banner-overlay d-flex align-items-center justify-content-center text-white small fw-semibold">
+                                <i class="bi bi-camera-fill me-2"></i> Cambiar Imagen de Portada
+                            </div>
+                        </div>
+                        <span class="text-muted extra-small d-block">Resolución recomendada: 1920x1080px (Máx.
+                            2MB).</span>
+                    </div>
+
+                    <button type="button"
+                        class="btn btn-emerald-save rounded-pill px-4 py-2 fw-semibold mt-2 align-self-start shadow-sm">
+                        Guardar Cambios de Portada
+                    </button>
+                </form>
+            </div>
+
+            <div class="config-card p-4 bg-white border rounded-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-2 d-flex align-items-center gap-2">
+                    <i class="bi bi-exclamation-triangle-fill text-warning-orange"></i> Avisos a Turistas (Cinta Global)
+                </h5>
+                <p class="text-muted small mb-3">Muestra un mensaje importante en la parte superior de la web/app (Ej:
+                    Clima, vías cerradas).</p>
+
+                <div class="d-flex flex-column gap-3">
+                    <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
+                        <label class="form-check-label fw-semibold text-dark-green small">Activar Barra de Aviso</label>
+                        <input class="form-check-input config-switch shadow-none m-0" type="checkbox">
+                    </div>
+                    <div>
+                        <input type="text" class="form-control config-control shadow-none"
+                            placeholder="Ej: Temporada de lluvias intensa. Tomar precauciones en Cataratas.">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="config-column d-flex flex-column gap-4">
+
+            <div class="config-card p-4 bg-white border rounded-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-grid-3x3-gap-fill text-turquesa"></i> Secciones del Inicio
+                </h5>
+
+                <div class="d-flex flex-column gap-3">
+                    <span class="text-muted small d-block mb-1">Elige qué bloques se mostrarán activos en la página
+                        principal:</span>
+
+                    <div
+                        class="d-flex justify-content-between align-items-center p-2.5 rounded-3 border bg-light-tingo">
+                        <span class="small fw-semibold text-dark-green"><i
+                                class="bi bi-star-fill text-warning me-2"></i> Lugares Más Valorados</span>
+                        <div class="form-check form-switch m-0">
+                            <input class="form-check-input config-switch shadow-none" type="checkbox" checked>
+                        </div>
+                    </div>
+
+                    <div
+                        class="d-flex justify-content-between align-items-center p-2.5 rounded-3 border bg-light-tingo">
+                        <span class="small fw-semibold text-dark-green"><i
+                                class="bi bi-tags-fill text-secondary me-2"></i> Filtros por Categorías</span>
+                        <div class="form-check form-switch m-0">
+                            <input class="form-check-input config-switch shadow-none" type="checkbox" checked>
+                        </div>
+                    </div>
+
+                    <div
+                        class="d-flex justify-content-between align-items-center p-2.5 rounded-3 border bg-light-tingo">
+                        <span class="small fw-semibold text-dark-green"><i
+                                class="bi bi-chat-square-quote-fill text-secondary me-2"></i> Reseñas Recientes de
+                            Turistas</span>
+                        <div class="form-check form-switch m-0">
+                            <input class="form-check-input config-switch shadow-none" type="checkbox">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="config-card p-4 bg-white border rounded-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-cpu-fill text-turquesa"></i> Integraciones y Enlaces
+                </h5>
+
+                <div class="d-flex flex-column gap-3">
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Enlace de Soporte (WhatsApp
+                            Corporativo)</label>
+                        <div class="input-group">
+                            <span class="input-group-text border-end-0 bg-white text-muted small"><i
+                                    class="bi bi-whatsapp"></i></span>
+                            <input type="text" class="form-control config-control border-start-0 shadow-none"
+                                value="https://wa.me/51900000000">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Límite de Reseñas por Usuario /
+                            Día</label>
+                        <select class="form-select config-select shadow-none">
+                            <option value="3">Máximo 3 reseñas diarias</option>
+                            <option value="5">Máximo 5 reseñas diarias</option>
+                            <option value="0">Sin límite</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -53,11 +53,15 @@
 
       @for (destino of destinos; track destino.id) {
       <div class="col-12 col-md-6">
-        <div class="card destination-card border-0 overflow-hidden shadow-sm position-relative">
+
+        <div class="card destination-card border-0 overflow-hidden shadow-sm position-relative"
+     [routerLink]="['/detail', destino.id]" 
+     [state]="{ data: destino }" 
+     style="cursor: pointer;">
 
           <img [src]="destino.imagen" [alt]="destino.titulo" class="card-img-top destination-img">
 
-          <button class="btn btn-heart position-absolute top-0 end-0 m-3 shadow-sm">
+          <button class="btn btn-heart position-absolute top-0 end-0 m-3 shadow-sm" (click)="$event.stopPropagation()">
             <i class="bi" [ngClass]="destino.esFavorito ? 'bi-heart-fill text-danger' : 'bi-heart'"></i>
           </button>
 

@@ -1,0 +1,124 @@
+<div class="reviews-container">
+
+    <div class="dashboard-header mb-4">
+        <div class="header-info">
+            <h1 class="fw-extrabold text-dark-green tracking-tight mb-1">Moderación de Reseñas</h1>
+            <p class="text-secondary m-0">Revisa, aprueba o descarta los comentarios y calificaciones que los turistas
+                otorgan a los destinos.</p>
+        </div>
+    </div>
+
+    <div class="filter-wrapper d-flex justify-content-between align-items-center gap-3 flex-wrap mb-4">
+        <div class="review-tabs d-flex gap-2 p-1 bg-white border rounded-pill shadow-xs">
+            <button class="btn btn-tab active rounded-pill px-3 py-1.5 small fw-bold">
+                Pendientes <span class="badge ms-1 count-badge bg-turquesa">5</span>
+            </button>
+            <button class="btn btn-tab rounded-pill px-3 py-1.5 small fw-bold text-secondary">
+                Aprobadas
+            </button>
+            <button class="btn btn-tab rounded-pill px-3 py-1.5 small fw-bold text-secondary">
+                Spam / Rechazadas
+            </button>
+        </div>
+
+        <div class="search-input-container position-relative" style="width: 100%; max-width: 320px;">
+            <i class="bi bi-search search-icon text-muted"></i>
+            <input type="text" class="form-control search-control ps-5 py-2.5 shadow-none"
+                placeholder="Buscar por turista o lugar...">
+        </div>
+    </div>
+
+    <div class="reviews-stack d-flex flex-column gap-3">
+
+        <div class="review-card p-4 bg-white border rounded-4 shadow-sm">
+            <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+
+                <div class="d-flex gap-3">
+                    <div
+                        class="avatar-tourist text-white fw-bold rounded-circle d-flex align-items-center justify-content-center shadow-xs">
+                        AM
+                    </div>
+                    <div>
+                        <h6 class="m-0 fw-bold text-dark-green">Alejandro Morales</h6>
+                        <div class="text-warning small my-1">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <span class="text-muted small fw-medium ms-1">5.0</span>
+                        </div>
+                        <span class="text-muted small">Hace 10 minutos en <span
+                                class="fw-semibold text-turquesa">Catarata San Miguel</span></span>
+                    </div>
+                </div>
+
+                <div class="action-buttons d-flex gap-2">
+                    <button
+                        class="btn btn-moderation approve rounded-pill px-3 py-2 fw-semibold d-flex align-items-center gap-1">
+                        <i class="bi bi-check-circle-fill"></i> Aprobar
+                    </button>
+                    <button
+                        class="btn btn-moderation reject rounded-pill px-3 py-2 fw-semibold d-flex align-items-center gap-1">
+                        <i class="bi bi-x-circle-fill"></i> Rechazar
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="review-body mt-3 pt-3 border-top">
+                <p class="text-secondary m-0">
+                    "La caminata hacia la catarata es un reto hermoso, pero llegar y ver la caída de agua paga
+                    absolutamente todo. El agua es helada pero muy refrescante. Totalmente recomendado si vienes a Tingo
+                    con espíritu de aventura."
+                </p>
+            </div>
+        </div>
+
+        <div class="review-card p-4 bg-white border rounded-4 shadow-sm">
+            <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+
+                <div class="d-flex gap-3">
+                    <div class="avatar-tourist text-white fw-bold rounded-circle d-flex align-items-center justify-content-center shadow-xs"
+                        style="background-color: #4b5866;">
+                        LC
+                    </div>
+                    <div>
+                        <h6 class="m-0 fw-bold text-dark-green">Lucía Cáceres</h6>
+                        <div class="text-warning small my-1">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <span class="text-muted small fw-medium ms-1">4.0</span>
+                        </div>
+                        <span class="text-muted small">Hace 2 horas en <span class="fw-semibold text-turquesa">La Bella
+                                Durmiente</span></span>
+                    </div>
+                </div>
+
+                <div class="action-buttons d-flex gap-2">
+                    <button
+                        class="btn btn-moderation approve rounded-pill px-3 py-2 fw-semibold d-flex align-items-center gap-1">
+                        <i class="bi bi-check-circle-fill"></i> Aprobar
+                    </button>
+                    <button
+                        class="btn btn-moderation reject rounded-pill px-3 py-2 fw-semibold d-flex align-items-center gap-1">
+                        <i class="bi bi-x-circle-fill"></i> Rechazar
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="review-body mt-3 pt-3 border-top">
+                <p class="text-secondary m-0">
+                    "Una vista icónica indispensable de fotografiar desde el mirador. Recomiendo ir por la tarde para
+                    agarrar el atardecer, la brisa de la selva se siente genial a esa hora."
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>

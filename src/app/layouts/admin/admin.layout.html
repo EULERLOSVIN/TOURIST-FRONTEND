@@ -1,0 +1,14 @@
+<div class="admin-layout">
+  
+  <button class="btn-toggle-sidebar d-lg-none" (click)="sidebarActivo = !sidebarActivo" [class.active]="sidebarActivo">
+    <i class="bi" [class.bi-list]="!sidebarActivo" [class.bi-x]="sidebarActivo"></i>
+  </button>
+
+  <div class="sidebar-overlay d-lg-none" [class.show]="sidebarActivo" (click)="sidebarActivo = false"></div>
+
+  <app-sidebar [class.mobile-open]="sidebarActivo"></app-sidebar>
+
+  <main class="main-content p-3 p-md-4">
+    <router-outlet></router-outlet>
+  </main>
+</div>

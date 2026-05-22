@@ -1,0 +1,91 @@
+/* --- FONDO TOTAL (BACKDROP CON EL EFECTO BORROSO DE TU PÁGINA) --- */
+.modal-backdrop-tingo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(7, 18, 20, 0.4);
+    /* Base turquesa ultra oscura traslúcida */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    /* Por encima de todo, incluso del sidebar móvil */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* --- CUERPO DEL MODAL --- */
+.modal-box-tingo {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 20px 40px rgba(7, 18, 20, 0.25) !important;
+}
+
+/* --- CONTENEDOR DEL ICONO --- */
+.warning-icon-container {
+    width: 60px;
+    height: 60px;
+    background-color: #fff9db;
+    /* Amarillo pastel calmo */
+    color: #f59e0b;
+    /* Dorado de advertencia */
+    font-size: 1.8rem;
+}
+
+/* --- BOTÓN DE CANCELAR --- */
+.btn-modal-cancel {
+    background-color: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    transition: all 0.2s ease;
+}
+
+.btn-modal-cancel:hover {
+    background-color: #e2e8f0;
+    color: #1e293b;
+}
+
+/* --- BOTÓN DE CONFIRMAR (ELIMINAR) --- */
+.btn-modal-confirm {
+    background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-modal-confirm:hover {
+    background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
+    box-shadow: 0 6px 15px rgba(220, 38, 38, 0.3) !important;
+    transform: translateY(-0.5px);
+}
+
+/* --- ANIMACIÓN DE APERTURA SUAVE --- */
+.animate-fade-in {
+    animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* --- CLASES AUXILIARES --- */
+.text-dark-green {
+    color: #072a1a;
+}
+
+.tracking-tight {
+    letter-spacing: -0.02em;
+}

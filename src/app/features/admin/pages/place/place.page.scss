@@ -1,0 +1,203 @@
+/* --- ENTORNO GLOBAL --- */
+.places-container {
+    padding: 1rem 0.5rem;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* --- CABECERA --- */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+/* Botón con el degradado esmeralda insignia */
+.btn-emerald-action {
+    background: linear-gradient(135deg, #22937e 0%, #15553e 100%);
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-emerald-action:hover {
+    background: linear-gradient(135deg, #2aa790 0%, #196349 100%);
+    box-shadow: 0 8px 16px rgba(34, 147, 126, 0.25) !important;
+    transform: translateY(-1px);
+}
+
+/* --- BARRA DE FILTROS --- */
+.filter-bar {
+    border-color: #eaeaea !important;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+}
+
+.search-control {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    background-color: #f8fafc;
+    transition: all 0.2s ease;
+}
+
+.search-control:focus {
+    background-color: #ffffff;
+    border-color: #22937e;
+    box-shadow: 0 0 0 3px rgba(34, 147, 126, 0.1) !important;
+}
+
+.filter-select {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: #475569;
+    background-color: #ffffff;
+    min-width: 170px;
+}
+
+/* --- CUADRÍCULA DE TARJETAS (CSS GRID RESPONSIVO) --- */
+.places-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 1.8rem;
+}
+
+.place-card {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+    border-color: #eaeaea !important;
+    min-height: 400px;
+}
+
+.place-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(15, 38, 42, 0.06) !important;
+}
+
+/* --- IMÁGENES Y BADGES INTERNOS --- */
+.card-image-wrapper {
+    height: 200px;
+    overflow: hidden;
+    background-color: #f1f5f9;
+}
+
+.place-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.place-card:hover .place-thumb {
+    transform: scale(1.04);
+    /* Efecto zoom sutil al pasar el mouse */
+}
+
+.place-thumb-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #1a2f26;
+}
+
+/* Etiquetas flotantes */
+.top-3 {
+    top: 1rem !important;
+}
+
+.start-3 {
+    start: 1rem !important;
+}
+
+.end-3 {
+    end: 1rem !important;
+}
+
+.category-tag {
+    background-color: rgba(15, 38, 42, 0.85) !important;
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 8px !important;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.status-tag {
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 8px !important;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+}
+
+.status-tag.publicado {
+    background-color: #e6f4ea !important;
+    color: #137333 !important;
+}
+
+.status-tag.borrador {
+    background-color: #fef7e0 !important;
+    color: #b06000 !important;
+}
+
+/* --- BOTONES DE LA TARJETA --- */
+.btn-icon-place {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    transition: all 0.2s ease;
+}
+
+.btn-icon-place:hover {
+    background-color: #f1f5f9;
+    color: #22937e;
+    border-color: #cbd5e1;
+}
+
+.btn-icon-place.text-danger:hover {
+    background-color: #fff5f5;
+    color: #e53e3e !important;
+    border-color: #fed7d7;
+}
+
+/* --- TRUNCADO DE TEXTO SEGURO --- */
+.text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5;
+    height: 3rem;
+    /* Fija la altura para que las tarjetas queden alineadas */
+}
+
+/* --- CLASES DE MARCA --- */
+.text-dark-green {
+    color: #072a1a;
+}
+
+.fw-extrabold {
+    font-weight: 800;
+}
+
+.tracking-tight {
+    letter-spacing: -0.02em;
+}
+
+.shadow-xs {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}

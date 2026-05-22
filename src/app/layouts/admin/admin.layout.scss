@@ -1,0 +1,69 @@
+/* --- CONTENEDOR FLUIDO GLOBAL --- */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f7f6;
+  position: relative;
+}
+
+.main-content {
+  flex-grow: 1;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* --- BOTÓN HAMBURGUESA FLOTANTE --- */
+.btn-toggle-sidebar {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 110; 
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background-color: #0f262a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #17d3a2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(15, 38, 42, 0.2);
+  transition: all 0.3s ease;
+}
+
+.btn-toggle-sidebar.active {
+  background-color: #e11d48;
+  color: #ffffff;
+  border-color: #e11d48;
+}
+
+/* --- CAPA OSCURA DESENFOCADA --- */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(7, 18, 20, 0.3); 
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 101; 
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.sidebar-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- COMPORTAMIENTO EN PC --- */
+@media (min-width: 992px) {
+  .main-content {
+    margin-left: 280px;
+    width: calc(100% - 280px);
+  }
+}

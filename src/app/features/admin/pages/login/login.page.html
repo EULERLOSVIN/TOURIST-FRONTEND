@@ -1,0 +1,51 @@
+<div class="position-relative min-vh-100 d-flex justify-content-center align-items-center overflow-hidden p-3">
+
+    <img src="img/portada2.jpg" alt="Fondo Tingo María" class="login-bg-image">
+
+    <div class="login-overlay"></div>
+
+    <div
+        class="login-card p-4 p-sm-5 rounded-5 position-relative z-1 text-center border-glass shadow-glass animate-fade-in">
+
+        <div class="mb-4 d-flex justify-content-center">
+            <div class="icon-glass-circle shadow-sm">
+                <i class="bi bi-person-circle display-4 text-white"></i>
+            </div>
+        </div>
+
+        <h2 class="fw-extrabold mb-5 text-white tracking-tight text-shadow-sm">Acceso Administrativo</h2>
+
+        <form class="w-100 text-start">
+
+            <div class="mb-4">
+                <label for="username"
+                    class="form-label fw-semibold text-white-85 ms-1 mb-2 text-shadow-xs">Usuario</label>
+                <div class="input-group-tingo position-relative">
+                    <i class="bi bi-person input-icon text-white-50"></i>
+                    <input type="text" class="form-control glass-input px-3 py-2.5 shadow-none" id="username"
+                        placeholder="Ingrese su usuario">
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <label for="password"
+                    class="form-label fw-semibold text-white-85 ms-1 mb-2 text-shadow-xs">Contraseña</label>
+                <div class="input-group-tingo position-relative">
+                    <i class="bi bi-lock input-icon text-white-50"></i>
+                    <input type="password" class="form-control glass-input px-3 py-2.5 shadow-none" id="password"
+                        placeholder="Ingrese su contraseña">
+                </div>
+            </div>
+
+            <a [routerLink]="['/admin']"
+                class="btn btn-glass-submit w-100 rounded-pill py-3 fw-bold text-uppercase tracking-wider shadow-sm text-decoration-none text-center d-block">
+                Ingresar
+            </a>
+
+            <div class="text-center mt-4">
+                <a href="#" class="text-white-50 small text-decoration-none hover-white">¿Olvidó su contraseña?</a>
+            </div>
+        </form>
+
+    </div>
+</div>

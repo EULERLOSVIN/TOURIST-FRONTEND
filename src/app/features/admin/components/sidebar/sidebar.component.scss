@@ -1,0 +1,143 @@
+/* --- CONTAINER: AGUA PROFUNDA (TRANQUILIDAD, FRESCURA Y ALTA GAMA) --- */
+.sidebar {
+  width: 280px;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 1.6rem 1.2rem !important;
+  box-sizing: border-box;
+  background-color: #0f262a !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 4px 0 25px rgba(10, 24, 26, 0.3) !important;
+
+  /* CAMBIO CLAVE PARA RESPONSIVIDAD: */
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* --- TEXTOS E ICONOS DE CABECERA --- */
+.text-white {
+  color: #ffffff !important;
+}
+
+.text-success-dark {
+  /* El icono superior brilla en un tono turquesa neón sutil */
+  color: #17d3a2 !important;
+  filter: drop-shadow(0 2px 8px rgba(23, 211, 162, 0.35));
+}
+
+/* --- ENLACES EN ESTADO EN REPOSO --- */
+.nav-link {
+  border-radius: 14px !important;
+  padding: 0.85rem 1.1rem !important;
+  display: flex;
+  align-items: center;
+  transition: all 0.25s ease !important;
+  margin-bottom: 0.3rem;
+
+  /* Texto en un tono gris aqua claro muy relajante para la vista */
+  color: #9eb5b8 !important;
+  background-color: transparent !important;
+  border: 1px solid transparent;
+}
+
+.nav-link i {
+  color: #517378 !important;
+  /* Iconos integrados suavemente al fondo */
+  transition: all 0.25s ease;
+}
+
+/* --- INTERACCIÓN INTERMEDIA (HOVER) --- */
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  color: #ffffff !important;
+  transform: translateX(4px);
+  /* Movimiento fluido */
+}
+
+.nav-link:hover i {
+  color: #17d3a2 !important;
+}
+
+/* --- ESTADO ACTIVO SELECCIONADO (CONEXIÓN CON EL BOTÓN) --- */
+.nav-link.active {
+  /* Tu verde esmeralda insignia transicionando hacia el fondo oscuro */
+  background: linear-gradient(135deg, #22937e 0%, #112d31 100%) !important;
+  color: #ffffff !important;
+
+  /* Borde reflectante de cristal */
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  font-weight: 600 !important;
+
+  /* Brillo esmeralda elegante de fondo */
+  box-shadow: 0 8px 20px rgba(34, 147, 126, 0.25) !important;
+  transform: translateX(0) !important;
+}
+
+.nav-link.active i {
+  color: #ffffff !important;
+}
+
+/* --- DETALLES DEL USUARIO (FOOTER) --- */
+.admin-avatar {
+  width: 42px;
+  height: 42px;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #17d3a2 !important;
+}
+
+.admin-info h6 {
+  font-size: 0.9rem;
+  color: #ffffff !important;
+}
+
+.text-muted {
+  color: #5f7e82 !important;
+  /* Correo atenuado en la misma gama */
+}
+
+.opacity-25 {
+  opacity: 0.06 !important;
+  border-color: #ffffff !important;
+}
+
+/* --- BOTÓN CERRAR SESIÓN --- */
+.btn-logout {
+  background: rgba(248, 113, 113, 0.05) !important;
+  color: #fca5a5 !important;
+  border: 1px solid rgba(248, 113, 113, 0.12) !important;
+  border-radius: 12px !important;
+  transition: all 0.25s ease !important;
+}
+
+.btn-logout:hover {
+  background: #e11d48 !important;
+  /* Rojo sutilmente frío */
+  color: #ffffff !important;
+  border-color: #e11d48 !important;
+  box-shadow: 0 6px 15px rgba(225, 29, 72, 0.3) !important;
+}
+
+.tracking-tight {
+  letter-spacing: -0.02em;
+}
+
+/* === REGLAS DE RESPONSIVIDAD INTERNAS DEL SIDEBAR === */
+@media (max-width: 991px) {
+  .sidebar {
+    transform: translateX(-100%) !important;
+    /* Escondido por defecto en celular */
+    z-index: 105 !important;
+    /* Forzado por encima del filtro blur */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  /* El truco maestro de Angular: Si el host tiene la clase, se muestra */
+  :host-context(.mobile-open) .sidebar {
+    transform: translateX(0) !important;
+    box-shadow: 15px 0 40px rgba(7, 18, 20, 0.6) !important;
+  }
+}

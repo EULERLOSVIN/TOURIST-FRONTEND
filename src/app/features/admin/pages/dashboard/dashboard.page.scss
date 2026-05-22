@@ -1,0 +1,193 @@
+/* --- ENTORNO GLOBAL DEL DASHBOARD --- */
+.dashboard-container {
+  padding: 1rem 0.5rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* --- CABECERA --- */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.header-date {
+  font-size: 0.9rem;
+  background-color: #ffffff;
+  border-color: #e2e8f0 !important;
+}
+
+/* --- CUADRÍCULA DE TARJETAS METRICAS (CSS GRID RESPONSIVO) --- */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.metric-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  border-color: #eaeaea !important;
+}
+
+.metric-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px rgba(15, 38, 42, 0.05) !important;
+}
+
+/* Contenedores circulares de iconos KPI */
+.card-icon-container {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+/* --- CUADRÍCULA DE CONTENIDO INTERMEDIO --- */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  /* El gráfico toma más espacio que las acciones rápidas */
+  gap: 1.5rem;
+}
+
+@media (max-width: 992px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+    /* Se apila verticalmente en pantallas medianas/chicas */
+  }
+}
+
+.content-card {
+  border-color: #eaeaea !important;
+}
+
+/* --- GRÁFICO DE BARRAS SIMULADO --- */
+.chart-placeholder {
+  height: 180px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.bar-chart-item {
+  width: 100%;
+  max-width: 32px;
+  background-color: #e2e8f0;
+  border-radius: 6px 6px 0 0;
+  transition: all 0.3s ease;
+}
+
+.bar-chart-item:hover {
+  background-color: #15553e;
+}
+
+/* Barra destacada con tu verde esmeralda preferido */
+.bar-chart-item.active {
+  background: linear-gradient(180deg, #22937e 0%, #15553e 100%);
+}
+
+/* --- BOTONES DE ACCIONES RÁPIDAS --- */
+.actions-stack {
+  height: 180px;
+  display: flex;
+  flex-column: justify;
+}
+
+.btn-action-quick {
+  background-color: #f8faf9;
+  border: 1px solid #e2ebd0;
+  transition: all 0.2s ease;
+}
+
+.btn-action-quick:hover {
+  background-color: #ffffff;
+  border-color: #22937e;
+  box-shadow: 0 4px 12px rgba(34, 147, 126, 0.08);
+}
+
+/* --- ESTILOS DE LA TABLA DE RESEÑAS --- */
+.table-light-tingo {
+  background-color: #f4f7f6;
+}
+
+.table-light-tingo th {
+  background-color: #f4f7f6 !important;
+}
+
+.table-hover tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #fafdff !important;
+}
+
+.text-truncate-custom {
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- CLASES CROMÁTICAS AUXILIARES (SINTONIZADAS) --- */
+.text-dark-green {
+  color: #072a1a;
+}
+
+.text-turquesa {
+  color: #112d31;
+}
+
+.text-emerald {
+  color: #22937e;
+}
+
+.text-aqua {
+  color: #15553e;
+}
+
+.bg-turquesa-light {
+  background-color: rgba(17, 45, 49, 0.08);
+}
+
+.bg-emerald-light {
+  background-color: rgba(34, 147, 126, 0.1);
+}
+
+.bg-aqua-light {
+  background-color: rgba(21, 85, 62, 0.08);
+}
+
+.bg-warning-light {
+  background-color: #fff9db;
+}
+
+.bg-success-subtle {
+  background-color: #d1e7dd !important;
+}
+
+.fw-extrabold {
+  font-weight: 800;
+}
+
+.tracking-tight {
+  letter-spacing: -0.02em;
+}
+
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
+
+.btn-outline-turquesa {
+  color: #22937e;
+  border: 1px solid #22937e;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-turquesa:hover {
+  background-color: #22937e;
+  color: #ffffff;
+}

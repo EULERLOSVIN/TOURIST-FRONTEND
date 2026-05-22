@@ -1,0 +1,29 @@
+<div class="modal-backdrop-tingo">
+
+    <div class="modal-box-tingo rounded-4 p-4 shadow-lg text-center animate-fade-in">
+
+        <div
+            class="warning-icon-container mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+
+        <h4 class="fw-bold text-dark-green tracking-tight mb-2">¿Confirmas la eliminación?</h4>
+        <p class="text-secondary small px-2 mb-4">
+            Estás a punto de eliminar de forma permanente este lugar del catálogo. Esta acción no se puede deshacer y
+            afectará la visualización de los turistas.
+        </p>
+
+        <div class="modal-actions-tingo d-flex gap-2">
+            <button (click)="cancelar()" class="btn btn-modal-cancel flex-grow-1 rounded-pill py-2.5 fw-semibold">
+                No, cancelar
+            </button>
+
+            <button (click)="confirmar()"
+                class="btn btn-modal-confirm flex-grow-1 rounded-pill py-2.5 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2">
+                <i class="bi bi-trash3-fill"></i> Sí, eliminar
+            </button>
+        </div>
+
+    </div>
+
+</div>

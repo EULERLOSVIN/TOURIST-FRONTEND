@@ -1,0 +1,176 @@
+/* --- ENTORNO GLOBAL --- */
+.workers-container {
+  padding: 1rem 0.5rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* --- CABECERA --- */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+/* Botón Registrar con la identidad esmeralda de tu login */
+.btn-emerald-action {
+  background: linear-gradient(135deg, #22937e 0%, #15553e 100%);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-emerald-action:hover {
+  background: linear-gradient(135deg, #2aa790 0%, #196349 100%);
+  box-shadow: 0 8px 16px rgba(34, 147, 126, 0.25) !important;
+  transform: translateY(-1px);
+}
+
+/* --- GRID DE RESUMEN DE ROLES --- */
+.roles-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+}
+
+.summary-card {
+  border-color: #eaeaea !important;
+}
+
+.role-badge-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+/* --- BARRA DE FILTROS --- */
+.filter-bar {
+  border-color: #eaeaea !important;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+}
+
+.search-control {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  background-color: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.search-control:focus {
+  background-color: #ffffff;
+  border-color: #22937e;
+  box-shadow: 0 0 0 3px rgba(34, 147, 126, 0.1) !important;
+}
+
+.filter-select {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: #475569;
+  background-color: #ffffff;
+  min-width: 160px;
+}
+
+/* --- TABLA DE USUARIOS --- */
+.content-card {
+  border-color: #eaeaea !important;
+}
+
+.table-light-tingo th {
+  background-color: #f4f7f6 !important;
+}
+
+.avatar-worker {
+  width: 40px;
+  height: 40px;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Etiquetas de Roles Personalizadas */
+.role-tag {
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.role-tag.super-admin {
+  background-color: rgba(17, 45, 49, 0.07);
+  color: #112d31;
+}
+
+.role-tag.editor {
+  background-color: rgba(34, 147, 126, 0.08);
+  color: #15553e;
+}
+
+.role-tag.soporte {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+/* Botones de acción en la fila */
+.btn-icon-action {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+.btn-icon-action:hover {
+  background-color: #f1f5f9;
+  color: #072a1a;
+  border-color: #cbd5e1;
+}
+
+.btn-icon-action.text-danger:hover {
+  background-color: #fff5f5;
+  color: #e53e3e !important;
+  border-color: #fed7d7;
+}
+
+.btn-icon-action.text-success:hover {
+  background-color: #f0fdf4;
+  color: #16a34a !important;
+  border-color: #bbf7d0;
+}
+
+/* --- CLASES DE MARCA AUXILIARES --- */
+.text-dark-green { color: #072a1a; }
+.text-turquesa { color: #112d31; }
+.text-emerald { color: #22937e; }
+.text-aqua { color: #15553e; }
+
+.bg-turquesa-light { background-color: rgba(17, 45, 49, 0.07); }
+.bg-emerald-light { background-color: rgba(34, 147, 126, 0.08); }
+.bg-aqua-light { background-color: rgba(21, 85, 62, 0.07); }
+
+.bg-success-subtle { background-color: #e6f4ea !important; color: #137333 !important; }
+.bg-danger-subtle { background-color: #fce8e6 !important; color: #c5221f !important; }
+
+.fw-extrabold { font-weight: 800; }
+.tracking-tight { letter-spacing: -0.02em; }
+.tracking-wider { letter-spacing: 0.04em; }
+.shadow-xs { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04); }

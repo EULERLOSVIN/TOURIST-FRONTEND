@@ -1,0 +1,135 @@
+/* --- ENTORNO GLOBAL --- */
+.config-container {
+    padding: 1rem 0.5rem;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* --- CABECERA --- */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- CUADRÍCULA ESTRUCTURAL --- */
+.config-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem;
+}
+
+.config-card {
+    border-color: #eaeaea !important;
+}
+
+/* --- CUADRO PREVIO DEL BANNER DE PORTADA --- */
+.banner-preview-box {
+    height: 120px;
+    background-color: #1a2f26;
+    /* Color base selva simulando carga */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-tree" viewBox="0 0 16 16"><path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.584L3.616 8.444A.5.5 0 0 0 4 9.25h1.335L3.13 12.57A.5.5 0 0 0 3.541 13.25h3.959v2.5a.5.5 0 0 0 1 0v-2.5h3.959a.5.5 0 0 0 .411-.68L10.665 9.25H12a.5.5 0 0 0 .384-.806L10.416 5.5H11a.5.5 0 0 0 .416-.777l-3-4.5z"/></svg>');
+    background-position: center;
+    cursor: pointer;
+}
+
+.banner-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 38, 42, 0.4);
+    transition: background-color 0.2s ease;
+}
+
+.banner-preview-box:hover .banner-overlay {
+    background-color: rgba(34, 147, 126, 0.7);
+}
+
+/* --- CONTROLES DE FORMULARIOS --- */
+.config-control {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.95rem;
+    background-color: #f8fafc;
+    color: #334155;
+    transition: all 0.2s ease;
+}
+
+.config-control:focus {
+    background-color: #ffffff;
+    border-color: #22937e;
+    box-shadow: 0 0 0 3px rgba(34, 147, 126, 0.1) !important;
+}
+
+.config-select {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: #334155;
+    padding: 0.55rem 2rem 0.55rem 0.75rem;
+    background-color: #ffffff;
+}
+
+/* Switches de marca */
+.config-switch:checked {
+    background-color: #22937e !important;
+    border-color: #22937e !important;
+}
+
+.bg-light-tingo {
+    background-color: #f4f7f6;
+}
+
+/* Input group addon decorativo */
+.input-group-text {
+    background-color: #f8fafc;
+    border-color: #e2e8f0;
+    color: #64748b;
+    border-radius: 10px 0 0 10px;
+}
+
+.input-group .config-control {
+    border-radius: 0 10px 10px 0;
+}
+
+/* --- BOTONES DE ACCIÓN --- */
+.btn-emerald-save {
+    background: linear-gradient(135deg, #22937e 0%, #15553e 100%);
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-emerald-save:hover {
+    background: linear-gradient(135deg, #2aa790 0%, #196349 100%);
+    box-shadow: 0 6px 15px rgba(34, 147, 126, 0.2) !important;
+    transform: translateY(-0.5px);
+}
+
+/* --- CLASES DE SOPORTE --- */
+.text-dark-green {
+    color: #072a1a;
+}
+
+.text-turquesa {
+    color: #22937e;
+}
+
+.text-warning-orange {
+    color: #d97706;
+}
+
+.fw-extrabold {
+    font-weight: 800;
+}
+
+.tracking-tight {
+    letter-spacing: -0.02em;
+}
+
+.extra-small {
+    font-size: 0.72rem;
+}
+
+.shadow-xs {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}

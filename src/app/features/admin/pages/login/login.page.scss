@@ -1,0 +1,147 @@
+/* --- CONFIGURACIÓN DE FONDO ESCÉNICO --- */
+.login-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+/* El secreto del Glassmorphism: Un overlay oscuro súper sutil para que el fondo no compita con las letras blancas */
+.login-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.45) 100%);
+  z-index: 0;
+}
+
+.z-1 { z-index: 1; }
+
+/* --- ESTRUCTURA DE LA TARJETA DE CRISTAL (GLASSMORPHISM) --- */
+.login-card {
+  width: 100%;
+  max-width: 460px;
+  min-height: 520px;
+  
+  /* Gradiente blanco ultra traslúcido */
+  background: rgba(255, 255, 255, 0.08) !important; 
+  
+  /* Filtro nativo de desenfoque de fondo */
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  
+  /* Borde reflectante simulando el bisel del vidrio */
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-radius: 2rem !important;
+  
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.shadow-glass {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* --- DETALLES E ICONOGRAFÍA --- */
+.icon-glass-circle {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+/* --- INPUTS DE CRISTAL --- */
+.input-group-tingo {
+  display: flex;
+  align-items: center;
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 14px !important;
+  color: #ffffff !important;
+  padding-left: 3rem !important;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.55) !important;
+  }
+  
+  &:focus {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
+.input-icon {
+  position: absolute;
+  left: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  z-index: 2;
+}
+
+/* --- BOTÓN PREMIUM VERDE SINTONIZADO CON LA NATURALEZA --- */
+.btn-glass-submit {
+  background: linear-gradient(135deg, rgba(38, 166, 154, 0.8) 0%, rgba(20, 77, 50, 0.8) 100%);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  
+  &:hover {
+    background: linear-gradient(135deg, rgba(38, 166, 154, 0.95) 0%, rgba(20, 77, 50, 0.95) 100%);
+    box-shadow: 0 8px 20px rgba(20, 77, 50, 0.4) !important;
+    transform: translateY(-2px);
+    color: #ffffff;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* --- TIPOGRAFÍAS Y MEJORAS DE LEGIBILIDAD --- */
+.fw-extrabold { font-weight: 800; }
+.tracking-tight { letter-spacing: -0.02em; }
+.tracking-wider { letter-spacing: 0.06em; }
+.text-white-85 { color: rgba(255, 255, 255, 0.85); }
+.text-white-50 { color: rgba(255, 255, 255, 0.5); }
+
+.text-shadow-sm { text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+.text-shadow-xs { text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+
+.hover-white {
+  transition: color 0.2s;
+  &:hover { color: #ffffff !important; }
+}
+
+/* Animación sutil de entrada */
+.animate-fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}

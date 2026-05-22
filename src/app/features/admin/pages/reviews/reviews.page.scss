@@ -1,0 +1,141 @@
+/* --- ENTORNO GLOBAL --- */
+.reviews-container {
+    padding: 1rem 0.5rem;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* --- CABECERA --- */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- CONTROL DE PESTAÑAS (TABS) --- */
+.review-tabs {
+    border-color: #eaeaea !important;
+}
+
+.btn-tab {
+    border: none;
+    background: transparent;
+    font-size: 0.88rem;
+    transition: all 0.2s ease;
+}
+
+/* Pestaña seleccionada combinando con la identidad Turquesa Aurora de la barra */
+.btn-tab.active {
+    background-color: #112d31 !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(17, 45, 49, 0.15);
+}
+
+.count-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem !important;
+}
+
+.bg-turquesa {
+    background-color: #22937e !important;
+}
+
+/* --- BUSCADOR --- */
+.search-icon {
+    position: absolute;
+    left: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+}
+
+.search-control {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.search-control:focus {
+    border-color: #22937e;
+    box-shadow: 0 0 0 3px rgba(34, 147, 126, 0.1) !important;
+}
+
+/* --- TARJETAS DE COMENTARIOS --- */
+.review-card {
+    border-color: #eaeaea !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(15, 38, 42, 0.04) !important;
+}
+
+.avatar-tourist {
+    width: 44px;
+    height: 44px;
+    background-color: #22937e;
+    /* Tono insignia por defecto */
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+}
+
+.review-body p {
+    line-height: 1.6;
+    font-size: 0.96rem;
+    font-style: italic;
+}
+
+/* --- BOTONES DE ACCIÓN DE MODERACIÓN DE ALTA CALIDAD --- */
+.btn-moderation {
+    font-size: 0.88rem;
+    padding: 0.5rem 1.1rem;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+/* Botón Aprobar */
+.btn-moderation.approve {
+    background-color: #e6f4ea;
+    color: #137333;
+}
+
+.btn-moderation.approve:hover {
+    background-color: #137333;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(19, 115, 51, 0.2);
+}
+
+/* Botón Rechazar */
+.btn-moderation.reject {
+    background-color: #fce8e6;
+    color: #c5221f;
+}
+
+.btn-moderation.reject:hover {
+    background-color: #c5221f;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(197, 34, 31, 0.2);
+}
+
+/* --- CLASES CORE --- */
+.text-dark-green {
+    color: #072a1a;
+}
+
+.text-turquesa {
+    color: #22937e;
+}
+
+.fw-extrabold {
+    font-weight: 800;
+}
+
+.tracking-tight {
+    letter-spacing: -0.02em;
+}
+
+.shadow-xs {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}

@@ -1,0 +1,93 @@
+<div class="places-container">
+
+    <div class="dashboard-header mb-4">
+        <div class="header-info">
+            <h1 class="fw-extrabold text-dark-green tracking-tight mb-1">Lugares Turísticos</h1>
+            <p class="text-secondary m-0">Administra los atractivos, descripciones, fotos y estados de los destinos
+                turísticos.</p>
+        </div>
+
+        <button
+            class="btn btn-emerald-action rounded-pill px-4 py-2.5 fw-bold shadow-sm d-flex align-items-center gap-2">
+            <i class="bi bi-plus-circle-fill fs-5"></i> Agregar Nuevo Lugar
+        </button>
+    </div>
+
+    <div
+        class="filter-bar p-3 bg-white border rounded-4 mb-4 d-flex justify-content-between align-items-center gap-3 flex-wrap shadow-xs">
+        <div class="search-input-container position-relative flex-grow-1" style="max-width: 400px;">
+            <i class="bi bi-search search-icon text-muted"></i>
+            <input type="text" class="form-control search-control ps-5 py-2.5 shadow-none"
+                placeholder="Buscar atractivo turístico...">
+        </div>
+        <div class="filter-actions d-flex gap-2">
+            <select class="form-select filter-select shadow-none py-2.5 px-3">
+                <option value="">Todas las Categorías</option>
+                <option value="cuevas">Cuevas y Cavernas</option>
+                <option value="cataratas">Cataratas y Cascadas</option>
+                <option value="miradores">Miradores Naturales</option>
+                <option value="comunidades">Turismo Comunitario</option>
+            </select>
+            <select class="form-select filter-select shadow-none py-2.5 px-3">
+                <option value="">Todos los Estados</option>
+                <option value="publicado">Publicado</option>
+                <option value="borrador">Borrador</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="places-grid">
+
+        @for (lugar of lugares; track lugar.id) {
+        <div class="place-card bg-white border rounded-4 overflow-hidden shadow-sm d-flex flex-column">
+
+            <div class="position-relative card-image-wrapper">
+                <img src="img/portada1.jpg" [alt]="lugar.nombre" class="place-thumb">
+                <span class="badge position-absolute top-3 start-3 category-tag">{{ lugar.categoria }}</span>
+                <span class="badge position-absolute top-3 end-3 status-tag" [ngClass]="lugar.estado">
+                    {{ lugar.estado | titlecase }}
+                </span>
+            </div>
+
+            <div class="p-4 d-flex flex-column flex-grow-1">
+                <h5 class="fw-bold text-dark-green mb-1 text-truncate">{{ lugar.nombre }}</h5>
+
+                <p class="text-muted small mb-3 text-truncate-2">
+                    Balneario natural rodeado de densa vegetación y aguas cristalinas, ideal para misticismo y relajo.
+                </p>
+
+                <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                    <div class="rating-info text-warning small fw-semibold">
+                        <i class="bi bi-star-fill"></i> {{ lugar.rating }} <span class="text-muted fw-normal">({{
+                            lugar.opiniones }} opiniones)</span>
+                    </div>
+
+                    <div class="card-buttons d-flex gap-1">
+                        <a [routerLink]="['/admin/place/edit']" class="btn btn-icon-place"
+                            title="Editar lugar">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+
+                        <button (click)="abrirModalEliminar(lugar)" class="btn btn-icon-place text-danger"
+                            title="Ocultar o eliminar">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        }
+
+    </div>
+
+</div>
+
+
+
+
+@if (mostrarModalEliminar) {
+<app-delete-modal [placeName]="lugarSeleccionado?.nombre" (onConfirm)="ejecutarEliminacion()"
+    (onCancel)="cerrarModal()">
+</app-delete-modal>
+}

@@ -1,0 +1,159 @@
+<div class="edit-place-container">
+
+    <div class="edit-header mb-4">
+        <div class="header-info">
+            <a [routerLink]="['/admin/place']"
+                class="btn-back text-decoration-none d-inline-flex align-items-center gap-2 mb-2">
+                <i class="bi bi-arrow-left"></i> Volver a Lugares
+            </a>
+            <h1 class="fw-extrabold text-dark-green tracking-tight m-0">Editar Lugar Turístico</h1>
+            <p class="text-secondary small m-0">Actualiza los detalles multimedia, coordenadas geográficas y alertas en
+                tiempo real.</p>
+        </div>
+
+        <div class="header-actions d-flex gap-2">
+            <a [routerLink]="['/admin/place']"
+                class="btn btn-discard rounded-pill px-4 fw-semibold text-decoration-none d-flex align-items-center">
+                Descartar
+            </a>
+            <button
+                class="btn btn-emerald-save rounded-pill px-4 py-2.5 fw-bold shadow-sm d-flex align-items-center gap-2">
+                <i class="bi bi-cloud-check-fill"></i> Guardar Cambios
+            </button>
+        </div>
+    </div>
+
+    <div class="edit-grid">
+
+        <div class="edit-column d-flex flex-column gap-4">
+
+            <div class="edit-card bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-images text-turquesa"></i> Portada de Media
+                </h5>
+
+                <div
+                    class="media-dropzone rounded-4 d-flex flex-column align-items-center justify-content-center text-center p-4 position-relative">
+                    <div class="dropzone-overlay rounded-4"></div>
+                    <i class="bi bi-cloud-arrow-up-fill text-emerald fs-1 mb-2"></i>
+                    <h6 class="fw-bold text-dark-green m-0">Arrastra y suelta una nueva imagen</h6>
+                    <span class="text-muted small mt-1">o haz clic para buscar en tu dispositivo (Máx 5MB)</span>
+                </div>
+            </div>
+
+            <div class="edit-card bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-4 d-flex align-items-center gap-2">
+                    <i class="bi bi-file-earmark-text text-turquesa"></i> Detalles del Lugar
+                </h5>
+
+                <form (submit)="$event.preventDefault()" class="d-flex flex-column gap-3">
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Nombre del Lugar</label>
+                        <input type="text" class="form-control edit-control error shadow-none"
+                            value="Cueva de las Pavas">
+                        <span class="error-text d-block mt-1 small"><i class="bi bi-exclamation-circle"></i> El nombre
+                            ya existe en la base de datos.</span>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-bold">Categoría</label>
+                            <select class="form-select edit-select shadow-none">
+                                <option value="cuevas" selected>Cueva / Caverna</option>
+                                <option value="cataratas">Catarata / Cascada</option>
+                                <option value="miradores">Mirador Natural</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-bold">Nivel de Dificultad</label>
+                            <select class="form-select edit-select shadow-none">
+                                <option value="facil" selected>Caminata Fácil</option>
+                                <option value="moderado">Caminata Moderada</option>
+                                <option value="dificil">Aventura Difícil</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Descripción General (Inglés / Español
+                            sugerido)</label>
+                        <textarea class="form-control edit-control shadow-none"
+                            rows="4">A beautiful natural cave formation surrounded by lush jungle vegetation, known for its cool waters and local legends.</textarea>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="edit-column d-flex flex-column gap-4">
+
+            <div class="edit-card bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-geo-alt-fill text-turquesa"></i> Coordenadas Geográficas
+                </h5>
+
+                <div
+                    class="map-placeholder-box border rounded-4 mb-3 d-flex align-items-center justify-content-center position-relative overflow-hidden">
+                    <div class="map-grid-pattern"></div>
+                    <div
+                        class="map-pin-badge bg-turquesa text-white rounded-circle shadow-md d-flex align-items-center justify-content-center">
+                        <i class="bi bi-geo-fill"></i>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column gap-3">
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Latitud</label>
+                        <input type="text" class="form-control edit-control font-monospace shadow-none" value="-9.3245">
+                    </div>
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Longitud</label>
+                        <input type="text" class="form-control edit-control font-monospace shadow-none"
+                            value="-75.9871">
+                    </div>
+                </div>
+            </div>
+
+            <div class="edit-card bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-2 d-flex align-items-center gap-2">
+                    <i class="bi bi-cloud-lightning-rain-fill text-warning"></i> Alertas Meteorológicas
+                </h5>
+                <p class="text-muted small mb-3">Configura avisos en tiempo real para alertar a los turistas sobre las
+                    condiciones del sendero.</p>
+
+                <div class="d-flex flex-column gap-3">
+                    <div>
+                        <label class="form-label text-secondary small fw-bold d-block mb-2">Nivel de Severidad</label>
+                        <div class="severity-toggle-group d-flex gap-2">
+                            <button
+                                class="btn btn-severity btn-sev-blue rounded-3 flex-grow-1 py-2 fw-bold">Azul</button>
+                            <button
+                                class="btn btn-severity btn-sev-yellow active rounded-3 flex-grow-1 py-2 fw-bold">Amarillo</button>
+                            <button
+                                class="btn btn-severity btn-sev-red rounded-3 flex-grow-1 py-2 fw-bold">Rojo</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Texto del Banner informativo</label>
+                        <input type="text" class="form-control edit-control shadow-none"
+                            value="High river level. Exercise caution near the banks.">
+                    </div>
+
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Fecha de Expiración del Aviso</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control edit-control border-end-0 shadow-none"
+                                value="2026-05-25">
+                            <span class="input-group-text border-start-0 bg-light-input text-muted"><i
+                                    class="bi bi-calendar-event"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

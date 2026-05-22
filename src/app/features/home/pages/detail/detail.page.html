@@ -1,0 +1,109 @@
+<div class="animate-fade-in" style="padding-top: 72px;">
+  @if (destinoSeleccionado) {
+  <section class="position-relative detail-hero d-flex align-items-end text-white pb-5">
+    <img [src]="destinoSeleccionado.imagen" [alt]="destinoSeleccionado.titulo" class="detail-hero-img">
+    <div class="detail-overlay"></div>
+
+    <div class="container position-relative z-1">
+      <div class="row">
+        <div class="col-12">
+          <button (click)="regresar()" class="btn btn-light rounded-pill px-4 mb-4 shadow-sm fw-medium">
+            <i class="bi bi-arrow-left me-2"></i> Regresar
+          </button>
+
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <span class="badge d-inline-block px-3 py-2 rounded-pill fs-6"
+              [ngClass]="destinoSeleccionado.claseCategoria">
+              {{ destinoSeleccionado.categoria }}
+            </span>
+            <button (click)="irAResenas(seccionResenas)" class="btn btn-link text-white text-decoration-none p-0 small">
+              <i class="bi bi-chat-left-text-fill text-warning me-1"></i> Ver Reseñas
+            </button>
+          </div>
+
+          <h1 class="display-3 fw-bold text-shadow m-0 mt-2">{{ destinoSeleccionado.titulo }}</h1>
+          <p class="fs-5 text-shadow mt-2 mb-0">
+            <i class="bi bi-geo-alt-fill me-1 text-danger"></i> {{ destinoSeleccionado.ubicacion }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-5">
+    <div class="container">
+      <div class="row g-5">
+
+        <div class="col-12 col-lg-8">
+
+          <h3 class="fw-bold text-dark-green mb-3">Sobre este destino</h3>
+          <p class="lead text-secondary mb-4">
+            {{ destinoSeleccionado.descripcionExtensa }}
+          </p>
+
+          <h4 class="fw-bold text-dark-green mb-3">Galería de Fotos</h4>
+          <div class="row g-3 mb-5">
+            @for (foto of destinoSeleccionado.galeria; track $index) {
+            <div class="col-4">
+              <div class="overflow-hidden rounded-4 shadow-sm ratio ratio-4x3">
+                <img [src]="foto" alt="Foto de la galería" class="object-fit-cover w-100 h-100 img-thumbnail border-0">
+              </div>
+            </div>
+            }
+          </div>
+
+          <div class="p-4 border-start border-success border-4 bg-light rounded-end-4 mb-4">
+            <h5 class="fw-bold text-dark-green"><i class="bi bi-lightbulb-fill text-warning me-2"></i>Recomendaciones
+              indispensables</h5>
+            <p class="text-muted m-0 mt-2">{{ destinoSeleccionado.recomendaciones }}</p>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-4">
+          <div class="card border-0 shadow-sm rounded-4 p-4 bg-light position-sticky" style="top: 90px;">
+            <h4 class="fw-bold text-dark-green mb-3">Información de Visita</h4>
+            <hr class="my-3">
+
+            <div class="mb-3">
+              <label class="text-muted small d-block fw-bold"><i class="bi bi-clock me-1"></i> Horario de
+                Atención:</label>
+              <span class="fw-medium text-dark">{{ destinoSeleccionado.horario }}</span>
+            </div>
+
+            <div class="mb-4">
+              <label class="text-muted small d-block fw-bold"><i class="bi bi-shield-check me-1"></i> Estado del
+                Destino:</label>
+              <span class="badge bg-success">Abierto al Público</span>
+            </div>
+            <button class="btn btn-dark-green w-100 rounded-pill py-3 fw-bold">Ver ruta en Google Maps</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div #seccionResenas class="row mt-5 pt-5 border-top">
+        <div class="col-12">
+          <h3 class="fw-bold text-dark-green mb-4"><i class="bi bi-star-fill text-warning me-2"></i>Opiniones de la
+            Comunidad</h3>
+
+          <div class="card border-0 bg-light p-4 rounded-4 mb-3 shadow-sm">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <strong class="text-dark">Euler M.</strong>
+              <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                  class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+            </div>
+            <p class="text-muted m-0">¡Un lugar increíble de Tingo María! La maquetación del paisaje y la naturaleza te
+              dejan sin palabras. Súper recomendado visitar con toda la familia.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  } @else {
+  <div class="container text-center py-5">
+    <h2 class="text-muted">No se seleccionó ningún destino.</h2>
+    <button (click)="regresar()" class="btn btn-dark-green rounded-pill px-4 mt-3">Volver al inicio</button>
+  </div>
+  }
+</div>
