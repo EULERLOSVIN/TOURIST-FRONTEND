@@ -1,0 +1,74 @@
+<div class="modal-backdrop-tingo" (click)="cerrar()">
+
+    <div class="modal-box-tingo rounded-4 p-4 shadow-lg animate-slide-up" (click)="$event.stopPropagation()">
+
+        <div class="modal-header-tingo d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h4 class="fw-extrabold text-dark-green tracking-tight m-0">Registrar Trabajador</h4>
+                <p class="text-secondary small m-0">Asigna un nuevo miembro al equipo administrativo.</p>
+            </div>
+            <button (click)="cerrar()" class="btn-close-modal">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <form (submit)="$event.preventDefault()" class="d-flex flex-column gap-3">
+
+            <div class="form-group">
+                <label class="form-label text-secondary small fw-bold">Nombre Completo</label>
+                <div class="input-group-tingo">
+                    <i class="bi bi-person-fill"></i>
+                    <input type="text" class="form-control tingo-control" placeholder="Ej: Juan Pérez">
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label text-secondary small fw-bold">DNI / Identificación</label>
+                    <div class="input-group-tingo">
+                        <i class="bi bi-card-heading"></i>
+                        <input type="text" class="form-control tingo-control" placeholder="8 dígitos">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label text-secondary small fw-bold">Rol Administrativo</label>
+                    <select class="form-select tingo-select">
+                        <option value="editor">Editor de Contenido</option>
+                        <option value="soporte">Personal de Soporte</option>
+                        <option value="admin">Super Administrador</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label text-secondary small fw-bold">Correo Institucional</label>
+                <div class="input-group-tingo">
+                    <i class="bi bi-envelope-at-fill"></i>
+                    <input type="email" class="form-control tingo-control" placeholder="usuario@tingogo.com">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label text-secondary small fw-bold">Contraseña Temporal</label>
+                <div class="input-group-tingo">
+                    <i class="bi bi-lock-fill"></i>
+                    <input type="password" class="form-control tingo-control" placeholder="••••••••">
+                </div>
+            </div>
+
+            <div class="modal-footer-tingo d-flex gap-2 mt-3 pt-3 border-top">
+                <button (click)="cerrar()" type="button"
+                    class="btn btn-cancel-tingo rounded-pill px-4 py-2.5 fw-semibold flex-grow-1">
+                    Cancelar
+                </button>
+                <button (click)="guardar()" type="submit"
+                    class="btn btn-save-tingo rounded-pill px-4 py-2.5 fw-bold shadow-sm flex-grow-1 d-flex align-items-center justify-content-center gap-2">
+                    <i class="bi bi-person-check-fill"></i> Dar de Alta
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

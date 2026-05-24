@@ -1,0 +1,221 @@
+/* --- ENTORNO GLOBAL CONTENEDOR --- */
+.register-place-container {
+    padding: 1rem 0.5rem;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* --- CABECERA --- */
+.register-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.btn-back {
+    color: #22937e;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.btn-back:hover {
+    color: #0f262a;
+}
+
+/* Acciones superiores */
+.btn-discard {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    transition: all 0.2s ease;
+}
+
+.btn-discard:hover {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.btn-emerald-save {
+    background: linear-gradient(135deg, #22937e 0%, #15553e 100%);
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-emerald-save:hover {
+    background: linear-gradient(135deg, #2aa790 0%, #196349 100%);
+    box-shadow: 0 8px 18px rgba(34, 147, 126, 0.25) !important;
+    transform: translateY(-1px);
+}
+
+/* --- CUADRÍCULA --- */
+.register-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 992px) {
+    .register-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.register-card {
+    border-color: #eaeaea !important;
+}
+
+/* --- CONTROLES DE FORMULARIO --- */
+.reg-control {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+    background-color: #f8fafc;
+    color: #1e293b;
+    transition: all 0.2s ease;
+}
+
+.reg-control:focus {
+    background-color: #ffffff;
+    border-color: #22937e;
+    box-shadow: 0 0 0 3px rgba(34, 147, 126, 0.1) !important;
+}
+
+.reg-select {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 0.92rem;
+    padding: 0.7rem 2rem 0.7rem 1rem;
+    color: #1e293b;
+    background-color: #ffffff;
+}
+
+/* --- ZONA DROPZONE MULTIMEDIA MULTIPLE --- */
+.media-uploader-box {
+    border: 2px dashed #b3cbbd;
+    background-color: #fcfdfe;
+    height: 180px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0 30 L30 0 M70 100 L100 70" stroke="%23f1f5f3" stroke-width="2"/></svg>');
+}
+
+.media-uploader-box:hover {
+    border-color: #22937e;
+    background-color: rgba(34, 147, 126, 0.02);
+}
+
+.style-pointer {
+    cursor: pointer;
+}
+
+/* --- CHECKBOX PERSONALIZADOS PARA ACTIVIDADES --- */
+.custom-checkbox {
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.custom-checkbox:hover {
+    border-color: #22937e !important;
+}
+
+.custom-checkbox .form-check-input:checked {
+    background-color: #22937e !important;
+    border-color: #22937e !important;
+}
+
+.bg-light-tingo {
+    background-color: #f8fafc;
+}
+
+/* --- MINI MAPA PREVIO --- */
+.map-preview {
+    height: 150px;
+    background-color: #e3ede8;
+    border: 1px solid #e2e8f0;
+}
+
+.map-grid-pattern {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.15;
+    background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.map-pin {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(15, 38, 42, 0.2);
+}
+
+/* --- BOTONES DE GRAVEDAD CLIMÁTICA --- */
+.btn-sev {
+    border: 1px solid #e2e8f0;
+    background-color: #ffffff;
+    color: #64748b;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.btn-sev.btn-sev-blue:hover,
+.btn-sev.btn-sev-blue.active {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border-color: #bae6fd;
+}
+
+.btn-sev.btn-sev-yellow:hover,
+.btn-sev.btn-sev-yellow.active {
+    background-color: #fef9c3;
+    color: #a16207;
+    border-color: #fef08a;
+}
+
+.btn-sev.btn-sev-red:hover,
+.btn-sev.btn-sev-red.active {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border-color: #fca5a5;
+}
+
+/* --- AUXILIARES --- */
+.input-group-text {
+    background-color: #f1f5f9;
+    border-color: #e2e8f0;
+    color: #475569;
+}
+
+.bg-light-input {
+    background-color: #f8fafc;
+}
+
+.text-dark-green {
+    color: #072a1a;
+}
+
+.text-turquesa {
+    color: #22937e;
+}
+
+.text-emerald {
+    color: #15553e;
+}
+
+.fw-extrabold {
+    font-weight: 800;
+}
+
+.tracking-tight {
+    letter-spacing: -0.02em;
+}
+
+.extra-small {
+    font-size: 0.75rem;
+}

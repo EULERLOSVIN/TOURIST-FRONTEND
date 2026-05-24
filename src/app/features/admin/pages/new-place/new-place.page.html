@@ -1,0 +1,240 @@
+<div class="register-place-container">
+
+    <div class="register-header mb-4">
+        <div class="header-info">
+            <a routerLink="/admin/place"
+                class="btn-back text-decoration-none d-inline-flex align-items-center gap-2 mb-2">
+                <i class="bi bi-arrow-left"></i> Volver a Lugares
+            </a>
+            <h1 class="fw-extrabold text-dark-green tracking-tight m-0">Registrar Nuevo Atractivo</h1>
+            <p class="text-secondary small m-0">Introduce la información que se mostrará directamente en la app pública
+                para los turistas.</p>
+        </div>
+
+        <div class="header-actions d-flex gap-2">
+            <a routerLink="/admin/place"
+                class="btn btn-discard rounded-pill px-4 text-decoration-none d-flex align-items-center fw-semibold">
+                Cancelar
+            </a>
+            <button
+                class="btn btn-emerald-save rounded-pill px-4 py-2.5 fw-bold shadow-sm d-flex align-items-center gap-2">
+                <i class="bi bi-plus-circle-fill"></i> Publicar Destino
+            </button>
+        </div>
+    </div>
+
+    <div class="register-grid">
+
+        <div class="register-column d-flex flex-column gap-4">
+
+            <div class="register-card bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-4 d-flex align-items-center gap-2">
+                    <i class="bi bi-info-circle-fill text-turquesa"></i> Información General
+                </h5>
+
+                <div class="d-flex flex-column gap-3">
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Nombre del Atractivo Turístico</label>
+                        <input type="text" class="form-control reg-control shadow-none"
+                            placeholder="Ej: Catarata Velo de la Novia">
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-bold">Categoría</label>
+                            <select class="form-select reg-select shadow-none">
+                                <option value="" disabled selected>Selecciona categoría</option>
+                                <option value="cataratas">Cataratas y Cascadas</option>
+                                <option value="cuevas">Cuevas y Cavernas</option>
+                                <option value="miradores">Miradores Naturales</option>
+                                <option value="parques">Parques y Reservas</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-bold">Nivel de Dificultad
+                                (Trekking)</label>
+                            <select class="form-select reg-select shadow-none">
+                                <option value="facil">Fácil (Apto para todo público)</option>
+                                <option value="moderado">Moderado (Caminata regular)</option>
+                                <option value="dificil">Difícil (Aventura / Alta exigencia)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Descripción General para el
+                            Turista</label>
+                        <textarea class="form-control reg-control shadow-none" rows="4"
+                            placeholder="Escribe una reseña atractiva e informativa sobre el lugar..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="register-card bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-4 d-flex align-items-center gap-2">
+                    <i class="bi bi-cash-coin text-turquesa"></i> Horarios y Tarifas de Ingreso
+                </h5>
+
+                <div class="d-flex flex-column gap-3">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-bold">Precio Entrada Adultos (S/.)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light-input border-end-0 text-muted">S/.</span>
+                                <input type="number" class="form-control reg-control border-start-0 shadow-none"
+                                    placeholder="0.00">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-bold">Precio Entrada Niños (S/.)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light-input border-end-0 text-muted">S/.</span>
+                                <input type="number" class="form-control reg-control border-start-0 shadow-none"
+                                    placeholder="0.00">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-bold">Hora de Apertura</label>
+                            <input type="time" class="form-control reg-control shadow-none" value="08:00">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-bold">Hora de Cierre</label>
+                            <input type="time" class="form-control reg-control shadow-none" value="17:00">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="register-card bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-check-circle-fill text-turquesa"></i> Actividades Permitidas / Recomendadas
+                </h5>
+                <p class="text-muted small mb-3">Selecciona las actividades que tendrán el check activo en la ficha
+                    informativa del usuario.</p>
+
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div
+                            class="form-check custom-checkbox p-3 border rounded-3 bg-light-tingo d-flex align-items-center gap-2">
+                            <input class="form-check-input shadow-none m-0" type="checkbox" id="act1">
+                            <label class="form-check-label small fw-semibold text-dark-green" for="act1"><i
+                                    class="bi bi-water text-primary me-1"></i> Natación / Baño</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div
+                            class="form-check custom-checkbox p-3 border rounded-3 bg-light-tingo d-flex align-items-center gap-2">
+                            <input class="form-check-input shadow-none m-0" type="checkbox" id="act2">
+                            <label class="form-check-label small fw-semibold text-dark-green" for="act2"><i
+                                    class="bi bi-compass text-success me-1"></i> Senderismo / Trekking</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div
+                            class="form-check custom-checkbox p-3 border rounded-3 bg-light-tingo d-flex align-items-center gap-2">
+                            <input class="form-check-input shadow-none m-0" type="checkbox" id="act3">
+                            <label class="form-check-label small fw-semibold text-dark-green" for="act3"><i
+                                    class="bi bi-camera-fill text-secondary me-1"></i> Fotografía Paisajística</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div
+                            class="form-check custom-checkbox p-3 border rounded-3 bg-light-tingo d-flex align-items-center gap-2">
+                            <input class="form-check-input shadow-none m-0" type="checkbox" id="act4">
+                            <label class="form-check-label small fw-semibold text-dark-green" for="act4"><i
+                                    class="bi bi-tree-fill text-emerald me-1"></i> Camping / Picnic</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="register-column d-flex flex-column gap-4">
+
+            <div class="register-card bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-images text-turquesa"></i> Galería de Imágenes
+                </h5>
+
+                <div
+                    class="media-uploader-box rounded-4 d-flex flex-column align-items-center justify-content-center text-center p-4">
+                    <i class="bi bi-cloud-arrow-up-fill text-emerald fs-1 mb-2"></i>
+                    <h6 class="fw-bold text-dark-green m-0">Sube las fotos del atractivo</h6>
+                    <span class="text-muted extra-small mt-1">Soporta múltiples imágenes de alta resolución (Máx 5MB
+                        c/u)</span>
+                    <input type="file" class="position-absolute opacity-0 w-100 h-100 top-0 start-0 style-pointer"
+                        multiple>
+                </div>
+            </div>
+
+            <div class="register-card bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-geo-alt-fill text-turquesa"></i> Geolocalización (Coordenadas)
+                </h5>
+
+                <div
+                    class="map-preview border rounded-4 mb-3 d-flex align-items-center justify-content-center position-relative overflow-hidden">
+                    <div class="map-grid-pattern"></div>
+                    <div
+                        class="map-pin bg-turquesa text-white rounded-circle shadow d-flex align-items-center justify-content-center">
+                        <i class="bi bi-geo-fill"></i>
+                    </div>
+                </div>
+
+                <div class="row g-2">
+                    <div class="col-6">
+                        <label class="form-label text-secondary small fw-bold">Latitud</label>
+                        <input type="text" class="form-control reg-control font-monospace shadow-none"
+                            placeholder="-9.3124">
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label text-secondary small fw-bold">Longitud</label>
+                        <input type="text" class="form-control reg-control font-monospace shadow-none"
+                            placeholder="-75.9921">
+                    </div>
+                </div>
+            </div>
+
+            <div class="register-card bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-cloud-sun-fill text-warning"></i> Estado y Alerta de Clima Global
+                </h5>
+
+                <div class="d-flex flex-column gap-3">
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Estado de Publicación Inicial</label>
+                        <select class="form-select reg-select shadow-none">
+                            <option value="publicado" selected>Publicado (Visible al Turista inmediatamente)</option>
+                            <option value="borrador">Borrador (Solo visible para administración)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="form-label text-secondary small fw-bold d-block mb-2">Gravedad de la Alerta de
+                            Ruta</label>
+                        <div class="severity-selector d-flex gap-2">
+                            <button
+                                class="btn btn-sev btn-sev-blue active rounded-3 flex-grow-1 py-2 fw-bold">Normal</button>
+                            <button
+                                class="btn btn-sev btn-sev-yellow rounded-3 flex-grow-1 py-2 fw-bold">Precaución</button>
+                            <button class="btn btn-sev btn-sev-red rounded-3 flex-grow-1 py-2 fw-bold">Cerrado</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Mensaje Informativo de Alerta</label>
+                        <input type="text" class="form-control reg-control shadow-none"
+                            placeholder="Ej: Ruta despejada y clima favorable.">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

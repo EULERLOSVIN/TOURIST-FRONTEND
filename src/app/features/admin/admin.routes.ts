@@ -21,10 +21,13 @@ export const ADMIN_ROUTES: Routes = [
         path: 'place',
         loadComponent: () => import('./pages/place/place.page').then(m => m.PlacePage),    
       },
-      /* NAVEGACIÓN INDEPENDIENTE DE EDICIÓN (RECOMENDADA) */
       {
         path: 'place/edit',
         loadComponent: () => import('./pages/edit-place/edit-place.page').then(m => m.EditPlacePage)
+      },
+      {
+        path: 'place/new-place',
+        loadComponent: () => import('./pages/new-place/new-place.page').then(m => m.NewPlacePage)
       },
       {
         path: 'reviews',
