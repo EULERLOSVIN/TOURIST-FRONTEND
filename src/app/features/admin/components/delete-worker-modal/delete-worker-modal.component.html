@@ -1,0 +1,44 @@
+<div class="modal-backdrop-tingo" (click)="cerrar()">
+
+    <div class="modal-box-tingo rounded-4 p-4 shadow-lg text-center animate-slide-up" (click)="$event.stopPropagation()">
+
+        <!-- Botón de cerrar (X) idéntico a tus otros modales -->
+        <div class="position-absolute top-0 end-0 m-3">
+            <button (click)="cerrar()" class="btn-close shadow-none border-0 small opacity-50"></button>
+        </div>
+
+        <!-- Icono de Alerta Administrativa Destructiva -->
+        <div class="mb-3 d-flex justify-content-center mt-2">
+            <div class="icon-warning-circle shadow-sm">
+                <i class="bi bi-person-x-fill display-5 text-danger"></i>
+            </div>
+        </div>
+
+        <div class="modal-header-tingo mb-3">
+            <h4 class="fw-extrabold text-dark-green tracking-tight m-0">¿Eliminar Trabajador?</h4>
+        </div>
+
+        <div class="modal-body-tingo mb-4 text-start bg-light-warning rounded-4 p-3 border border-danger-subtle">
+            <p class="text-secondary small m-0">
+                Está a punto de eliminar de forma permanente la cuenta administrativa de 
+                <strong class="text-dark-green">{{ trabajador?.name }}</strong> con DNI <strong>{{ trabajador?.dni }}</strong>.
+            </p>
+            <p class="text-danger small fw-semibold mt-2 mb-0">
+                <i class="bi bi-exclamation-triangle-fill me-1"></i> Esta acción es irreversible y revocará todos sus accesos al sistema de TingoGo.
+            </p>
+        </div>
+
+        <div class="modal-footer-tingo d-flex gap-2 pt-2">
+            <button (click)="cerrar()" type="button"
+                class="btn btn-cancel-tingo rounded-pill px-4 py-2.5 fw-semibold flex-grow-1">
+                Cancelar
+            </button>
+            <button (click)="confirmarEliminacion()" type="button"
+                class="btn btn-danger-delete rounded-pill px-4 py-2.5 fw-bold shadow-sm flex-grow-1 d-flex align-items-center justify-content-center gap-2">
+                <i class="bi bi-trash3-fill"></i> Confirmar Eliminación
+            </button>
+        </div>
+
+    </div>
+
+</div>

@@ -7,16 +7,15 @@
                 <i class="bi bi-arrow-left"></i> Volver a Lugares
             </a>
             <h1 class="fw-extrabold text-dark-green tracking-tight m-0">Registrar Nuevo Atractivo</h1>
-            <p class="text-secondary small m-0">Introduce la información que se mostrará directamente en la app pública
-                para los turistas.</p>
+            <p class="text-secondary small m-0">Introduce la información que se mostrará directamente en la app pública para los turistas.</p>
         </div>
 
         <div class="header-actions d-flex gap-2">
             <a routerLink="/admin/place"
-                class="btn btn-discard rounded-pill px-4 text-decoration-none d-flex align-items-center fw-semibold">
+                class="btn btn-discard rounded-pill px-4 text-decoration-none d-inline-flex align-items-center fw-semibold">
                 Cancelar
             </a>
-            <button
+            <button (click)="guardarLugar()"
                 class="btn btn-emerald-save rounded-pill px-4 py-2.5 fw-bold shadow-sm d-flex align-items-center gap-2">
                 <i class="bi bi-plus-circle-fill"></i> Publicar Destino
             </button>
@@ -33,39 +32,51 @@
                 </h5>
 
                 <div class="d-flex flex-column gap-3">
-                    <div>
-                        <label class="form-label text-secondary small fw-bold">Nombre del Atractivo Turístico</label>
-                        <input type="text" class="form-control reg-control shadow-none"
-                            placeholder="Ej: Catarata Velo de la Novia">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label text-secondary small fw-bold">Nombre del Atractivo Turístico (title)</label>
+                            <input type="text" class="form-control reg-control shadow-none" [(ngModel)]="placeDto.title"
+                                placeholder="Ej: Parque Nacional Tingo María">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label text-secondary small fw-bold">Ciudad / Distrito (city)</label>
+                            <input type="text" class="form-control reg-control shadow-none" [(ngModel)]="placeDto.city"
+                                placeholder="Ej: Tingo María">
+                        </div>
                     </div>
 
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label text-secondary small fw-bold">Categoría</label>
-                            <select class="form-select reg-select shadow-none">
-                                <option value="" disabled selected>Selecciona categoría</option>
-                                <option value="cataratas">Cataratas y Cascadas</option>
-                                <option value="cuevas">Cuevas y Cavernas</option>
-                                <option value="miradores">Miradores Naturales</option>
-                                <option value="parques">Parques y Reservas</option>
+                            <label class="form-label text-secondary small fw-bold">Categoría (category)</label>
+                            <select class="form-select reg-select shadow-none" [(ngModel)]="placeDto.idCategory">
+                                <option [value]="0" disabled selected>Selecciona categoría</option>
+                                @for (cat of categorias; track cat.idCategory) {
+                                <option [value]="cat.idCategory">{{ cat.categoryName }}</option>
+                                }
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label text-secondary small fw-bold">Nivel de Dificultad
-                                (Trekking)</label>
-                            <select class="form-select reg-select shadow-none">
-                                <option value="facil">Fácil (Apto para todo público)</option>
-                                <option value="moderado">Moderado (Caminata regular)</option>
-                                <option value="dificil">Difícil (Aventura / Alta exigencia)</option>
+                            <label class="form-label text-secondary small fw-bold">Días de Atención (schedule)</label>
+                            <select class="form-select reg-select shadow-none" [(ngModel)]="diasSeleccionados">
+                                @for (opcion of opcionesDias; track opcion) {
+                                <option [value]="opcion">{{ opcion }}</option>
+                                }
                             </select>
                         </div>
                     </div>
 
                     <div>
-                        <label class="form-label text-secondary small fw-bold">Descripción General para el
-                            Turista</label>
-                        <textarea class="form-control reg-control shadow-none" rows="4"
-                            placeholder="Escribe una reseña atractiva e informativa sobre el lugar..."></textarea>
+                        <label class="form-label text-secondary small fw-bold">Descripción General (description)</label>
+                        <textarea class="form-control reg-control shadow-none" rows="3"
+                            [(ngModel)]="placeDto.description"
+                            placeholder="Escribe una reseña informativa sobre el lugar..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Recomendaciones indispensables (recommendations)</label>
+                        <textarea class="form-control reg-control shadow-none" rows="2"
+                            [(ngModel)]="placeDto.recommendations"
+                            placeholder="Ej: Llevar repelente biodegradable, calzado antideslizante..."></textarea>
                     </div>
                 </div>
             </div>
@@ -78,76 +89,73 @@
                 <div class="d-flex flex-column gap-3">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label text-secondary small fw-bold">Precio Entrada Adultos (S/.)</label>
+                            <label class="form-label text-secondary small fw-bold">Precio Adultos (priceAdult)</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light-input border-end-0 text-muted">S/.</span>
                                 <input type="number" class="form-control reg-control border-start-0 shadow-none"
-                                    placeholder="0.00">
+                                    [(ngModel)]="placeDto.priceAdult" placeholder="0.00">
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label text-secondary small fw-bold">Precio Entrada Niños (S/.)</label>
+                            <label class="form-label text-secondary small fw-bold">Precio Niños (priceChild)</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light-input border-end-0 text-muted">S/.</span>
                                 <input type="number" class="form-control reg-control border-start-0 shadow-none"
-                                    placeholder="0.00">
+                                    [(ngModel)]="placeDto.priceChild" placeholder="0.00">
                             </div>
                         </div>
                     </div>
 
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label text-secondary small fw-bold">Hora de Apertura</label>
-                            <input type="time" class="form-control reg-control shadow-none" value="08:00">
+                            <label class="form-label text-secondary small fw-bold">Hora de Apertura (entryTime)</label>
+                            <input type="time" class="form-control reg-control shadow-none" [(ngModel)]="horaApertura">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label text-secondary small fw-bold">Hora de Cierre</label>
-                            <input type="time" class="form-control reg-control shadow-none" value="17:00">
+                            <label class="form-label text-secondary small fw-bold">Hora de Cierre (exitTime)</label>
+                            <input type="time" class="form-control reg-control shadow-none" [(ngModel)]="horaCierre">
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="register-card bg-white border rounded-4 p-4 shadow-sm">
-                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
-                    <i class="bi bi-check-circle-fill text-turquesa"></i> Actividades Permitidas / Recomendadas
+                <h5 class="fw-bold text-dark-green mb-2 d-flex align-items-center gap-2">
+                    <i class="bi bi-check-circle-fill text-turquesa"></i> Actividades Incluidas (activities)
                 </h5>
-                <p class="text-muted small mb-3">Selecciona las actividades que tendrán el check activo en la ficha
-                    informativa del usuario.</p>
+                <p class="text-muted small mb-3">Escribe las actividades personalizadas que ofrece este destino turístico y agrégalas a la lista.</p>
 
-                <div class="row g-3">
-                    <div class="col-sm-6">
-                        <div
-                            class="form-check custom-checkbox p-3 border rounded-3 bg-light-tingo d-flex align-items-center gap-2">
-                            <input class="form-check-input shadow-none m-0" type="checkbox" id="act1">
-                            <label class="form-check-label small fw-semibold text-dark-green" for="act1"><i
-                                    class="bi bi-water text-primary me-1"></i> Natación / Baño</label>
-                        </div>
+                <div class="d-flex gap-2 mb-3">
+                    <input type="text" class="form-control reg-control shadow-none flex-grow-1"
+                        placeholder="Ej: Paseo en bote, Escalada, Degustación mística..." [(ngModel)]="nuevaActividad"
+                        (keydown.enter)="$event.preventDefault(); agregarActividad()">
+
+                    <button type="button"
+                        class="btn btn-emerald-save rounded-3 px-3 d-flex align-items-center justify-content-center"
+                        (click)="agregarActividad()">
+                        <i class="bi bi-plus-lg fs-5"></i>
+                    </button>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+                    @for (actividad of placeDto.activitiesNames; track $index) {
+                    <div class="p-2.5 border rounded-3 bg-light-tingo d-flex align-items-center justify-content-between gap-3 animated fadeIn"
+                        style="min-width: 140px; border-color: #cbd5e1 !important;">
+                        <span class="small fw-semibold text-dark-green d-flex align-items-center gap-2">
+                            <i class="bi bi-compass text-success"></i> {{ actividad }}
+                        </span>
+                        <button type="button"
+                            class="btn p-0 border-0 bg-transparent text-danger small d-flex align-items-center"
+                            (click)="removerActividad($index)" title="Quitar actividad">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </button>
                     </div>
-                    <div class="col-sm-6">
-                        <div
-                            class="form-check custom-checkbox p-3 border rounded-3 bg-light-tingo d-flex align-items-center gap-2">
-                            <input class="form-check-input shadow-none m-0" type="checkbox" id="act2">
-                            <label class="form-check-label small fw-semibold text-dark-green" for="act2"><i
-                                    class="bi bi-compass text-success me-1"></i> Senderismo / Trekking</label>
-                        </div>
+                    } @empty {
+                    <div class="w-100 text-center py-3 text-muted border rounded-3 border-dashed"
+                        style="border-style: dashed !important; border-color: #cbd5e1 !important;">
+                        <span class="small">No has añadido actividades todavía. Usa el campo de arriba.</span>
                     </div>
-                    <div class="col-sm-6">
-                        <div
-                            class="form-check custom-checkbox p-3 border rounded-3 bg-light-tingo d-flex align-items-center gap-2">
-                            <input class="form-check-input shadow-none m-0" type="checkbox" id="act3">
-                            <label class="form-check-label small fw-semibold text-dark-green" for="act3"><i
-                                    class="bi bi-camera-fill text-secondary me-1"></i> Fotografía Paisajística</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div
-                            class="form-check custom-checkbox p-3 border rounded-3 bg-light-tingo d-flex align-items-center gap-2">
-                            <input class="form-check-input shadow-none m-0" type="checkbox" id="act4">
-                            <label class="form-check-label small fw-semibold text-dark-green" for="act4"><i
-                                    class="bi bi-tree-fill text-emerald me-1"></i> Camping / Picnic</label>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
 
@@ -157,78 +165,96 @@
 
             <div class="register-card bg-white border rounded-4 p-4 shadow-sm">
                 <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
-                    <i class="bi bi-images text-turquesa"></i> Galería de Imágenes
+                    <i class="bi bi-images text-turquesa"></i> Galería de Imágenes (gallery)
                 </h5>
 
-                <div
-                    class="media-uploader-box rounded-4 d-flex flex-column align-items-center justify-content-center text-center p-4">
-                    <i class="bi bi-cloud-arrow-up-fill text-emerald fs-1 mb-2"></i>
-                    <h6 class="fw-bold text-dark-green m-0">Sube las fotos del atractivo</h6>
-                    <span class="text-muted extra-small mt-1">Soporta múltiples imágenes de alta resolución (Máx 5MB
-                        c/u)</span>
+                <div class="media-uploader-box rounded-4 d-flex flex-column align-items-center justify-content-center text-center p-3 mb-3">
+                    <i class="bi bi-cloud-arrow-up-fill text-emerald fs-2 mb-1"></i>
+                    <h6 class="fw-bold text-dark-green small m-0">Sube las fotos del atractivo</h6>
+                    <span class="text-muted extra-small">Soporta múltiples imágenes</span>
                     <input type="file" class="position-absolute opacity-0 w-100 h-100 top-0 start-0 style-pointer"
-                        multiple>
+                        multiple (change)="onFileSelected($event)">
+                </div>
+
+                <div class="d-flex flex-wrap gap-3">
+                    @for (img of placeDto.gallery; track $index) {
+                    <div class="position-relative border rounded-3 overflow-hidden shadow-sm animated fadeIn"
+                        style="width: 110px; height: 110px; border-color: #cbd5e1 !important;">
+
+                        <img [src]="img" class="w-100 h-100" style="object-fit: cover;">
+
+                        <button type="button"
+                            class="btn p-0 border-0 bg-white rounded-circle position-absolute d-flex align-items-center justify-content-center shadow-sm"
+                            style="width: 24px; height: 24px; top: 6px; right: 6px; transition: transform 0.2s ease;"
+                            (click)="removerFoto($index)" title="Quitar foto">
+                            <i class="bi bi-x-circle-fill text-danger fs-5 line-height-none"></i>
+                        </button>
+
+                        @if ($first) {
+                        <span class="badge bg-success position-absolute bottom-0 start-0 w-100 rounded-0 py-1 text-center fw-bold"
+                            style="font-size: 0.7rem; opacity: 0.95; background-color: #22937e !important;">
+                            Portada
+                        </span>
+                        }
+                    </div>
+                    } @empty {
+                    <div class="w-100 text-center py-3 text-muted border rounded-3 border-dashed"
+                        style="border-style: dashed !important; border-color: #cbd5e1 !important; background-color: #fafbfc;">
+                        <span class="small text-secondary">Ninguna foto seleccionada aún.</span>
+                    </div>
+                    }
                 </div>
             </div>
 
             <div class="register-card bg-white border rounded-4 p-4 shadow-sm">
-                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
-                    <i class="bi bi-geo-alt-fill text-turquesa"></i> Geolocalización (Coordenadas)
+                <h5 class="fw-bold text-dark-green mb-1 d-flex align-items-center gap-2">
+                    <i class="bi bi-geo-alt-fill text-turquesa"></i> Geolocalización del Atractivo
                 </h5>
+                <p class="text-secondary extra-small mb-3">Busca el lugar en Google Maps, copia el enlace de la barra de direcciones y pégalo aquí abajo.</p>
 
-                <div
-                    class="map-preview border rounded-4 mb-3 d-flex align-items-center justify-content-center position-relative overflow-hidden">
+                <!-- 🌐 MAPA INTERACTIVO / CLICABLE -->
+                <!-- Se asignó el evento (click) a todo el contenedor para ir a Google Maps si está vacío -->
+                <div class="map-preview border rounded-4 mb-3 d-flex align-items-center justify-content-center position-relative overflow-hidden"
+                     [ngClass]="{'map-clickable': !mapaUrlSeguro}"
+                     (click)="!mapaUrlSeguro && abrirGoogleMapsNativo()">
+                    @if (mapaUrlSeguro) {
+                    <iframe [src]="mapaUrlSeguro" class="w-100 h-100 border-0" allowfullscreen="" loading="lazy"></iframe>
+                    } @else {
                     <div class="map-grid-pattern"></div>
-                    <div
-                        class="map-pin bg-turquesa text-white rounded-circle shadow d-flex align-items-center justify-content-center">
-                        <i class="bi bi-geo-fill"></i>
+                    <div class="map-action-overlay text-center p-2 z-3">
+                        <div class="map-pin bg-turquesa text-white rounded-circle shadow d-flex align-items-center justify-content-center mx-auto mb-2">
+                            <i class="bi bi-geo-fill"></i>
+                        </div>
+                        <span class="badge bg-dark-green rounded-pill px-3 py-1.5 shadow-sm text-white small fw-bold">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Abrir Asistente de Mapas
+                        </span>
                     </div>
+                    }
                 </div>
 
-                <div class="row g-2">
-                    <div class="col-6">
-                        <label class="form-label text-secondary small fw-bold">Latitud</label>
-                        <input type="text" class="form-control reg-control font-monospace shadow-none"
-                            placeholder="-9.3124">
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label text-secondary small fw-bold">Longitud</label>
-                        <input type="text" class="form-control reg-control font-monospace shadow-none"
-                            placeholder="-75.9921">
+                <div>
+                    <label class="form-label text-secondary small fw-bold">Enlace de Google Maps (linkGoogleMaps)</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light-input border-end-0 text-turquesa"><i class="bi bi-link-45deg"></i></span>
+                        <input type="text" class="form-control reg-control border-start-0 shadow-none"
+                            placeholder="Pegue la URL ej: https://www.google.com/maps/place/..."
+                            [(ngModel)]="placeDto.googleMapsLink" (input)="procesarEnlaceMapa()">
                     </div>
                 </div>
             </div>
 
             <div class="register-card bg-white border rounded-4 p-4 shadow-sm">
                 <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
-                    <i class="bi bi-cloud-sun-fill text-warning"></i> Estado y Alerta de Clima Global
+                    <i class="bi bi-cloud-sun-fill text-warning"></i> Estado de Disponibilidad (statetoPublic)
                 </h5>
 
                 <div class="d-flex flex-column gap-3">
                     <div>
-                        <label class="form-label text-secondary small fw-bold">Estado de Publicación Inicial</label>
-                        <select class="form-select reg-select shadow-none">
-                            <option value="publicado" selected>Publicado (Visible al Turista inmediatamente)</option>
-                            <option value="borrador">Borrador (Solo visible para administración)</option>
+                        <label class="form-label text-secondary small fw-bold">Disponibilidad en la App</label>
+                        <select class="form-select reg-select shadow-none" [(ngModel)]="placeDto.stateToPublic">
+                            <option [ngValue]="true">Abierto al Público</option>
+                            <option [ngValue]="false">Cerrado / Mantenimiento</option>
                         </select>
-                    </div>
-
-                    <div>
-                        <label class="form-label text-secondary small fw-bold d-block mb-2">Gravedad de la Alerta de
-                            Ruta</label>
-                        <div class="severity-selector d-flex gap-2">
-                            <button
-                                class="btn btn-sev btn-sev-blue active rounded-3 flex-grow-1 py-2 fw-bold">Normal</button>
-                            <button
-                                class="btn btn-sev btn-sev-yellow rounded-3 flex-grow-1 py-2 fw-bold">Precaución</button>
-                            <button class="btn btn-sev btn-sev-red rounded-3 flex-grow-1 py-2 fw-bold">Cerrado</button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="form-label text-secondary small fw-bold">Mensaje Informativo de Alerta</label>
-                        <input type="text" class="form-control reg-control shadow-none"
-                            placeholder="Ej: Ruta despejada y clima favorable.">
                     </div>
                 </div>
             </div>

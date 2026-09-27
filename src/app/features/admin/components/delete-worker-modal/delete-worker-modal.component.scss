@@ -1,0 +1,71 @@
+/* --- FONDO OSCURECIDO DE CRISTAL (BACKDROP GLOBAL) --- */
+.modal-backdrop-tingo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050; /* Al frente de todo el panel de administración */
+  padding: 1rem;
+}
+
+/* --- CAJA CENTRAL (ESTILO GLASSMORPHISM IDÉNTICO AL EDITAR) --- */
+.modal-box-tingo {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 480px; /* Tamaño compacto e ideal para alertas de confirmación */
+  position: relative;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Animación sutil de entrada hacia arriba */
+.animate-slide-up {
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* --- ESTILOS INTERNOS DE ADVERTENCIA DE TU MARCA --- */
+.icon-warning-circle {
+  width: 76px;
+  height: 76px;
+  background-color: #fff5f5;
+  border: 1px solid #fed7d7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-light-warning {
+  background-color: #fffbfa;
+}
+
+.btn-danger-delete {
+  background: linear-gradient(135deg, #e53e3e 0%, #b82323 100%);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.25s ease;
+}
+
+.btn-danger-delete:hover {
+  background: linear-gradient(135deg, #f54a4a 0%, #c92a2a 100%);
+  box-shadow: 0 6px 14px rgba(229, 62, 62, 0.22) !important;
+  transform: translateY(-0.5px);
+}

@@ -1,11 +1,19 @@
 <div class="position-relative min-vh-100 d-flex justify-content-center align-items-center overflow-hidden p-3">
 
-    <img src="img/portada2.jpg" alt="Fondo Tingo María" class="login-bg-image">
+    <!-- 🔄 BOTÓN: Volver al inicio público -->
+    <div class="position-absolute top-0 start-0 m-4 z-3">
+        <a routerLink="/" class="btn btn-outline-light rounded-pill px-4 py-2 small fw-semibold text-decoration-none d-inline-flex align-items-center gap-2 shadow-sm">
+            <i class="bi bi-arrow-left fs-5"></i>
+            <span>Volver al inicio público</span>
+        </a>
+    </div>
+
+    <!-- 🔄 IMAGEN DE FONDO DINÁMICA DESDE SQL SERVER -->
+    <img [src]="loginBgUrl" alt="Fondo Tingo María" class="login-bg-image">
 
     <div class="login-overlay"></div>
 
-    <div
-        class="login-card p-4 p-sm-5 rounded-5 position-relative z-1 text-center border-glass shadow-glass animate-fade-in">
+    <div class="login-card p-4 p-sm-5 rounded-5 position-relative z-1 text-center border-glass shadow-glass animate-fade-in">
 
         <div class="mb-4 d-flex justify-content-center">
             <div class="icon-glass-circle shadow-sm">
@@ -13,34 +21,51 @@
             </div>
         </div>
 
-        <h2 class="fw-extrabold mb-5 text-white tracking-tight text-shadow-sm">Acceso Administrativo</h2>
+        <h2 class="fw-extrabold mb-4 text-white tracking-tight text-shadow-sm">Acceso Administrativo</h2>
 
-        <form class="w-100 text-start">
+        <!-- ⚠️ Alerta de advertencia dinámica -->
+        <div *ngIf="errorMessage" class="alert alert-danger rounded-4 py-2 px-3 mb-4 small border-0 shadow-sm text-start animate-fade-in">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ errorMessage }}
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-100 text-start">
 
             <div class="mb-4">
-                <label for="username"
-                    class="form-label fw-semibold text-white-85 ms-1 mb-2 text-shadow-xs">Usuario</label>
+                <label for="username" class="form-label fw-semibold text-white-85 ms-1 mb-2 text-shadow-xs">Correo Electrónico</label>
                 <div class="input-group-tingo position-relative">
-                    <i class="bi bi-person input-icon text-white-50"></i>
-                    <input type="text" class="form-control glass-input px-3 py-2.5 shadow-none" id="username"
-                        placeholder="Ingrese su usuario">
+                    <i class="bi bi-envelope input-icon text-white-50"></i>
+                    <input type="email" formControlName="email" class="form-control glass-input px-3 py-2.5 shadow-none" id="username"
+                        placeholder="ejemplo@tingogo.com"
+                        [class.is-invalid]="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+                </div>
+                <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')" class="text-warning small ms-1 mt-1">
+                    El correo es requerido.
+                </div>
+                <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('email')" class="text-warning small ms-1 mt-1">
+                    Formato de correo no válido.
                 </div>
             </div>
 
             <div class="mb-5">
-                <label for="password"
-                    class="form-label fw-semibold text-white-85 ms-1 mb-2 text-shadow-xs">Contraseña</label>
+                <label for="password" class="form-label fw-semibold text-white-85 ms-1 mb-2 text-shadow-xs">Contraseña</label>
                 <div class="input-group-tingo position-relative">
                     <i class="bi bi-lock input-icon text-white-50"></i>
-                    <input type="password" class="form-control glass-input px-3 py-2.5 shadow-none" id="password"
-                        placeholder="Ingrese su contraseña">
+                    <input type="password" formControlName="password" class="form-control glass-input px-3 py-2.5 shadow-none" id="password"
+                        placeholder="Ingrese su contraseña"
+                        [class.is-invalid]="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+                </div>
+                <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="text-warning small ms-1 mt-1">
+                    La contraseña es obligatoria (mínimo 6 caracteres).
                 </div>
             </div>
 
-            <a [routerLink]="['/admin']"
+            <!-- Botón Adaptativo -->
+            <button type="submit" [disabled]="loginForm.invalid || isLoading"
                 class="btn btn-glass-submit w-100 rounded-pill py-3 fw-bold text-uppercase tracking-wider shadow-sm text-decoration-none text-center d-block">
-                Ingresar
-            </a>
+                <span *ngIf="!isLoading">Ingresar</span>
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                <span *ngIf="isLoading">Verificando...</span>
+            </button>
 
             <div class="text-center mt-4">
                 <a href="#" class="text-white-50 small text-decoration-none hover-white">¿Olvidó su contraseña?</a>

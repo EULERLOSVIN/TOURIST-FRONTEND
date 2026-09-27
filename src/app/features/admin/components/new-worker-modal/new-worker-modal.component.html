@@ -18,7 +18,7 @@
                 <label class="form-label text-secondary small fw-bold">Nombre Completo</label>
                 <div class="input-group-tingo">
                     <i class="bi bi-person-fill"></i>
-                    <input type="text" class="form-control tingo-control" placeholder="Ej: Juan Pérez">
+                    <input type="text" [(ngModel)]="name" name="name" class="form-control tingo-control" placeholder="Ej: Juan Pérez">
                 </div>
             </div>
 
@@ -27,15 +27,15 @@
                     <label class="form-label text-secondary small fw-bold">DNI / Identificación</label>
                     <div class="input-group-tingo">
                         <i class="bi bi-card-heading"></i>
-                        <input type="text" class="form-control tingo-control" placeholder="8 dígitos">
+                        <input type="text" [(ngModel)]="dni" name="dni" maxlength="8" class="form-control tingo-control" placeholder="8 dígitos">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label text-secondary small fw-bold">Rol Administrativo</label>
-                    <select class="form-select tingo-select">
-                        <option value="editor">Editor de Contenido</option>
-                        <option value="soporte">Personal de Soporte</option>
-                        <option value="admin">Super Administrador</option>
+                    <!-- 🔄 SELECT DINÁMICO: Carga los roles directo de la base de datos -->
+                    <select [(ngModel)]="idRole" name="idRole" class="form-select tingo-select">
+                        <option value="" disabled selected>Seleccione un Rol</option>
+                        <option *ngFor="let r of roles" [value]="r.idRole">{{ r.roleName }}</option>
                     </select>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 <label class="form-label text-secondary small fw-bold">Correo Institucional</label>
                 <div class="input-group-tingo">
                     <i class="bi bi-envelope-at-fill"></i>
-                    <input type="email" class="form-control tingo-control" placeholder="usuario@tingogo.com">
+                    <input type="email" [(ngModel)]="email" name="email" class="form-control tingo-control" placeholder="usuario@tingogo.com">
                 </div>
             </div>
 
@@ -52,7 +52,7 @@
                 <label class="form-label text-secondary small fw-bold">Contraseña Temporal</label>
                 <div class="input-group-tingo">
                     <i class="bi bi-lock-fill"></i>
-                    <input type="password" class="form-control tingo-control" placeholder="••••••••">
+                    <input type="password" [(ngModel)]="password" name="password" class="form-control tingo-control" placeholder="••••••••">
                 </div>
             </div>
 
@@ -63,7 +63,7 @@
                 </button>
                 <button (click)="guardar()" type="submit"
                     class="btn btn-save-tingo rounded-pill px-4 py-2.5 fw-bold shadow-sm flex-grow-1 d-flex align-items-center justify-content-center gap-2">
-                    <i class="bi bi-person-check-fill"></i> Dar de Alta
+                    <i class="bi bi-person-check-fill"></i> Registrar
                 </button>
             </div>
 

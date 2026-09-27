@@ -139,3 +139,79 @@
 .shadow-xs {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
+
+/* --- PAGINACIÓN Y ESTADOS VACÍOS --- */
+.border-dashed {
+    border-style: dashed !important;
+    border-color: #cbd5e1 !important;
+}
+
+.page-link {
+    color: #112d31;
+    border-color: #e2e8f0;
+    font-weight: 600;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+        background-color: #22937e;
+        color: #ffffff;
+        border-color: #22937e;
+    }
+}
+
+.page-item.disabled .page-link {
+    background-color: #f8fafc;
+    color: #94a3b8;
+    border-color: #e2e8f0;
+}
+
+/* --- MODAL PERSONALIZADO DE ADVERTENCIA --- */
+.custom-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(7, 42, 26, 0.45);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+}
+
+.custom-modal-content {
+    width: 90%;
+    max-width: 400px;
+    animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.warning-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background-color: #fce8e6;
+}
+
+.btn-danger-custom {
+    background-color: #c5221f;
+    color: #ffffff;
+    border: none;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+        background-color: #a51d1a;
+        box-shadow: 0 4px 12px rgba(197, 34, 31, 0.3);
+    }
+}
+
+@keyframes modalPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

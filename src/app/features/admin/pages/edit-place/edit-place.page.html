@@ -7,147 +7,256 @@
                 <i class="bi bi-arrow-left"></i> Volver a Lugares
             </a>
             <h1 class="fw-extrabold text-dark-green tracking-tight m-0">Editar Lugar Turístico</h1>
-            <p class="text-secondary small m-0">Actualiza los detalles multimedia, coordenadas geográficas y alertas en
-                tiempo real.</p>
+            <p class="text-secondary small m-0">Actualiza los detalles multimedia, tarifas, coordenadas geográficas y disponibilidad en tiempo real.</p>
         </div>
 
         <div class="header-actions d-flex gap-2">
             <a [routerLink]="['/admin/place']"
-                class="btn btn-discard rounded-pill px-4 fw-semibold text-decoration-none d-flex align-items-center">
+                class="btn btn-discard rounded-pill px-4 text-decoration-none d-inline-flex align-items-center fw-semibold">
                 Descartar
             </a>
-            <button
+            <button (click)="guardarCambios()"
                 class="btn btn-emerald-save rounded-pill px-4 py-2.5 fw-bold shadow-sm d-flex align-items-center gap-2">
                 <i class="bi bi-cloud-check-fill"></i> Guardar Cambios
             </button>
         </div>
     </div>
 
+    @if (cargando) {
+    <div class="text-center p-5 text-muted">
+        <div class="spinner-border text-success mb-2" role="status"></div>
+        <span class="d-block small">Recuperando información del destino desde SQL Server...</span>
+    </div>
+    } @else {
     <div class="edit-grid">
 
+        <!-- COLUMNA IZQUIERDA -->
         <div class="edit-column d-flex flex-column gap-4">
 
-            <div class="edit-card bg-white border rounded-4 p-4 shadow-sm">
-                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
-                    <i class="bi bi-images text-turquesa"></i> Portada de Media
-                </h5>
-
-                <div
-                    class="media-dropzone rounded-4 d-flex flex-column align-items-center justify-content-center text-center p-4 position-relative">
-                    <div class="dropzone-overlay rounded-4"></div>
-                    <i class="bi bi-cloud-arrow-up-fill text-emerald fs-1 mb-2"></i>
-                    <h6 class="fw-bold text-dark-green m-0">Arrastra y suelta una nueva imagen</h6>
-                    <span class="text-muted small mt-1">o haz clic para buscar en tu dispositivo (Máx 5MB)</span>
-                </div>
-            </div>
-
+            <!-- DETALLES DEL LUGAR -->
             <div class="edit-card bg-white border rounded-4 p-4 shadow-sm">
                 <h5 class="fw-bold text-dark-green mb-4 d-flex align-items-center gap-2">
-                    <i class="bi bi-file-earmark-text text-turquesa"></i> Detalles del Lugar
+                    <i class="bi bi-file-earmark-text text-turquesa"></i> Detalles del Atractivo
                 </h5>
 
-                <form (submit)="$event.preventDefault()" class="d-flex flex-column gap-3">
-                    <div>
-                        <label class="form-label text-secondary small fw-bold">Nombre del Lugar</label>
-                        <input type="text" class="form-control edit-control error shadow-none"
-                            value="Cueva de las Pavas">
-                        <span class="error-text d-block mt-1 small"><i class="bi bi-exclamation-circle"></i> El nombre
-                            ya existe en la base de datos.</span>
+                <div class="d-flex flex-column gap-3">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label text-secondary small fw-bold">Nombre del Atractivo (title)</label>
+                            <input type="text" class="form-control edit-control shadow-none" [(ngModel)]="placeDto.title">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label text-secondary small fw-bold">Ciudad / Distrito (city)</label>
+                            <input type="text" class="form-control edit-control shadow-none" [(ngModel)]="placeDto.city">
+                        </div>
                     </div>
 
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label text-secondary small fw-bold">Categoría</label>
-                            <select class="form-select edit-select shadow-none">
-                                <option value="cuevas" selected>Cueva / Caverna</option>
-                                <option value="cataratas">Catarata / Cascada</option>
-                                <option value="miradores">Mirador Natural</option>
+                            <label class="form-label text-secondary small fw-bold">Categoría (category)</label>
+                            <select class="form-select edit-select shadow-none" [(ngModel)]="placeDto.idCategory">
+                                <option [value]="0" disabled>Selecciona categoría</option>
+                                @for (cat of categorias; track cat.idCategory) {
+                                <option [value]="cat.idCategory">{{ cat.categoryName }}</option>
+                                }
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label text-secondary small fw-bold">Nivel de Dificultad</label>
-                            <select class="form-select edit-select shadow-none">
-                                <option value="facil" selected>Caminata Fácil</option>
-                                <option value="moderado">Caminata Moderada</option>
-                                <option value="dificil">Aventura Difícil</option>
+                            <label class="form-label text-secondary small fw-bold">Días de Atención (schedule)</label>
+                            <select class="form-select edit-select shadow-none" [(ngModel)]="diasSeleccionados">
+                                @for (opcion of opcionesDias; track opcion) {
+                                <option [value]="opcion">{{ opcion }}</option>
+                                }
                             </select>
                         </div>
                     </div>
 
                     <div>
-                        <label class="form-label text-secondary small fw-bold">Descripción General (Inglés / Español
-                            sugerido)</label>
-                        <textarea class="form-control edit-control shadow-none"
-                            rows="4">A beautiful natural cave formation surrounded by lush jungle vegetation, known for its cool waters and local legends.</textarea>
+                        <label class="form-label text-secondary small fw-bold">Descripción General (description)</label>
+                        <textarea class="form-control edit-control shadow-none" rows="4"
+                            [(ngModel)]="placeDto.description"></textarea>
                     </div>
-                </form>
+
+                    <div>
+                        <label class="form-label text-secondary small fw-bold">Recomendaciones indispensables (recommendations)</label>
+                        <textarea class="form-control edit-control shadow-none" rows="2"
+                            [(ngModel)]="placeDto.recommendations"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🎯 NUEVA TARJETA: ACTIVIDADES INCLUIDAS -->
+            <div class="edit-card bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-1 d-flex align-items-center gap-2">
+                    <i class="bi bi-check-circle-fill text-emerald"></i> Actividades Incluidas (activities)
+                </h5>
+                <p class="text-secondary small mb-3">Escribe las actividades personalizadas que ofrece este destino turístico y agrégalas a la lista.</p>
+
+                <div class="d-flex gap-2 mb-3">
+                    <input type="text" 
+                           class="form-control edit-control shadow-none" 
+                           placeholder="Ej: Paseo en bote, Escalada, Degustación mística..." 
+                           [(ngModel)]="nuevaActividad" 
+                           (keyup.enter)="agregarActividad()">
+                    
+                    <button type="button" 
+                            class="btn btn-emerald-add rounded-3 px-3.5 d-flex align-items-center justify-content-center" 
+                            (click)="agregarActividad()" 
+                            title="Agregar actividad">
+                        <i class="bi bi-plus-lg fs-5"></i>
+                    </button>
+                </div>
+
+                <!-- CHIPS DE ACTIVIDADES -->
+                <div class="d-flex flex-wrap gap-2">
+                    @for (act of placeDto.activitiesNames; track act; let idx = $index) {
+                        <span class="badge activity-chip-edit px-3 py-2 rounded-pill fw-semibold d-inline-flex align-items-center gap-2">
+                            <i class="bi bi-compass text-turquesa"></i>
+                            <span class="text-dark-green">{{ act }}</span>
+                            <i class="bi bi-x-circle-fill text-danger style-pointer btn-remove-chip" (click)="removerActividad(idx)" title="Eliminar actividad"></i>
+                        </span>
+                    } @empty {
+                        <span class="text-muted extra-small fst-italic">No hay actividades agregadas aún.</span>
+                    }
+                </div>
+            </div>
+
+            <!-- HORARIOS Y TARIFAS -->
+            <div class="edit-card bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-4 d-flex align-items-center gap-2">
+                    <i class="bi bi-cash-coin text-turquesa"></i> Horarios y Tarifas de Ingreso
+                </h5>
+
+                <div class="d-flex flex-column gap-3">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-bold">Precio Adultos (priceAdult)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light-input border-end-0 text-muted">S/.</span>
+                                <input type="number" class="form-control edit-control border-start-0 shadow-none"
+                                    [(ngModel)]="placeDto.priceAdult">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-bold">Precio Niños (priceChild)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light-input border-end-0 text-muted">S/.</span>
+                                <input type="number" class="form-control edit-control border-start-0 shadow-none"
+                                    [(ngModel)]="placeDto.priceChild">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-bold">Hora de Apertura (entryTime)</label>
+                            <input type="time" class="form-control edit-control shadow-none" [(ngModel)]="horaApertura">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-bold">Hora de Cierre (exitTime)</label>
+                            <input type="time" class="form-control edit-control shadow-none" [(ngModel)]="horaCierre">
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
 
+        <!-- COLUMNA DERECHA -->
         <div class="edit-column d-flex flex-column gap-4">
 
+            <!-- GALERÍA DE IMÁGENES -->
             <div class="edit-card bg-white border rounded-4 p-4 shadow-sm">
                 <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
-                    <i class="bi bi-geo-alt-fill text-turquesa"></i> Coordenadas Geográficas
+                    <i class="bi bi-images text-turquesa"></i> Galería de Imágenes (gallery)
                 </h5>
 
-                <div
-                    class="map-placeholder-box border rounded-4 mb-3 d-flex align-items-center justify-content-center position-relative overflow-hidden">
-                    <div class="map-grid-pattern"></div>
-                    <div
-                        class="map-pin-badge bg-turquesa text-white rounded-circle shadow-md d-flex align-items-center justify-content-center">
-                        <i class="bi bi-geo-fill"></i>
-                    </div>
+                <div class="media-dropzone rounded-4 d-flex flex-column align-items-center justify-content-center text-center p-3 mb-3 position-relative"
+                     style="height: 120px !important;">
+                    <i class="bi bi-cloud-arrow-up-fill text-emerald fs-2 mb-1"></i>
+                    <h6 class="fw-bold text-dark-green small m-0">Sube las fotos del atractivo</h6>
+                    <span class="text-muted extra-small">Soporta múltiples imágenes</span>
+                    <input type="file" class="position-absolute opacity-0 w-100 h-100 top-0 start-0 style-pointer"
+                        multiple (change)="onFileSelected($event)">
                 </div>
 
-                <div class="d-flex flex-column gap-3">
-                    <div>
-                        <label class="form-label text-secondary small fw-bold">Latitud</label>
-                        <input type="text" class="form-control edit-control font-monospace shadow-none" value="-9.3245">
+                <div class="d-flex flex-wrap gap-3">
+                    @for (img of placeDto.gallery; track $index) {
+                    <div class="position-relative border rounded-3 overflow-hidden shadow-sm animated fadeIn"
+                        style="width: 110px; height: 110px; border-color: #cbd5e1 !important;">
+
+                        <img [src]="img" class="w-100 h-100" style="object-fit: cover;">
+
+                        <button type="button"
+                            class="btn p-0 border-0 bg-white rounded-circle position-absolute d-flex align-items-center justify-content-center shadow-sm"
+                            style="width: 24px; height: 24px; top: 6px; right: 6px; transition: transform 0.2s ease; z-index: 10;"
+                            (click)="removerFoto($index)" title="Quitar foto">
+                            <i class="bi bi-x-circle-fill text-danger fs-5 line-height-none"></i>
+                        </button>
+
+                        @if ($first) {
+                        <span class="badge bg-success position-absolute bottom-0 start-0 w-100 rounded-0 py-1 text-center fw-bold"
+                            style="font-size: 0.7rem; opacity: 0.95; background-color: #22937e !important; z-index: 9;">
+                            Portada
+                        </span>
+                        }
                     </div>
-                    <div>
-                        <label class="form-label text-secondary small fw-bold">Longitud</label>
-                        <input type="text" class="form-control edit-control font-monospace shadow-none"
-                            value="-75.9871">
+                    } @empty {
+                    <div class="w-100 text-center py-3 text-muted border rounded-3 border-dashed"
+                        style="border-style: dashed !important; border-color: #cbd5e1 !important; background-color: #fafbfc;">
+                        <span class="small text-secondary">Ninguna foto seleccionada aún.</span>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <!-- COORDENADAS GEOGRÁFICAS -->
+            <div class="edit-card bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-1 d-flex align-items-center gap-2">
+                    <i class="bi bi-geo-alt-fill text-turquesa"></i> Geolocalización del Atractivo
+                </h5>
+                <p class="text-secondary extra-small mb-3">Busca el lugar en Google Maps, copia el enlace de la barra de direcciones y pégalo aquí abajo.</p>
+
+                <div class="map-placeholder-box border rounded-4 mb-3 d-flex align-items-center justify-content-center position-relative overflow-hidden"
+                     [ngClass]="{'map-clickable': !mapaUrlSeguro}" (click)="!mapaUrlSeguro && abrirGoogleMapsNativo()">
+                    @if (mapaUrlSeguro) {
+                    <iframe [src]="mapaUrlSeguro" class="w-100 h-100 border-0" allowfullscreen="" loading="lazy"></iframe>
+                    } @else {
+                    <div class="map-grid-pattern"></div>
+                    <div class="map-action-overlay text-center p-2 z-3">
+                        <div class="map-pin-badge bg-turquesa text-white rounded-circle shadow d-flex align-items-center justify-content-center mx-auto mb-2">
+                            <i class="bi bi-geo-fill"></i>
+                        </div>
+                        <span class="badge bg-dark-green rounded-pill px-3 py-1.5 shadow-sm text-white small fw-bold">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Abrir Asistente de Mapas
+                        </span>
+                    </div>
+                    }
+                </div>
+
+                <div>
+                    <label class="form-label text-secondary small fw-bold">Enlace de Google Maps</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light-input border-end-0 text-turquesa"><i class="bi bi-link-45deg"></i></span>
+                        <input type="text" class="form-control edit-control border-start-0 shadow-none"
+                            [(ngModel)]="placeDto.googleMapsLink" (input)="procesarEnlaceMapa()">
                     </div>
                 </div>
             </div>
 
+            <!-- ESTADO DE DISPONIBILIDAD -->
             <div class="edit-card bg-white border rounded-4 p-4 shadow-sm">
-                <h5 class="fw-bold text-dark-green mb-2 d-flex align-items-center gap-2">
-                    <i class="bi bi-cloud-lightning-rain-fill text-warning"></i> Alertas Meteorológicas
+                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-cloud-sun-fill text-warning"></i> Estado de Disponibilidad (statetoPublic)
                 </h5>
-                <p class="text-muted small mb-3">Configura avisos en tiempo real para alertar a los turistas sobre las
-                    condiciones del sendero.</p>
 
                 <div class="d-flex flex-column gap-3">
                     <div>
-                        <label class="form-label text-secondary small fw-bold d-block mb-2">Nivel de Severidad</label>
-                        <div class="severity-toggle-group d-flex gap-2">
-                            <button
-                                class="btn btn-severity btn-sev-blue rounded-3 flex-grow-1 py-2 fw-bold">Azul</button>
-                            <button
-                                class="btn btn-severity btn-sev-yellow active rounded-3 flex-grow-1 py-2 fw-bold">Amarillo</button>
-                            <button
-                                class="btn btn-severity btn-sev-red rounded-3 flex-grow-1 py-2 fw-bold">Rojo</button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="form-label text-secondary small fw-bold">Texto del Banner informativo</label>
-                        <input type="text" class="form-control edit-control shadow-none"
-                            value="High river level. Exercise caution near the banks.">
-                    </div>
-
-                    <div>
-                        <label class="form-label text-secondary small fw-bold">Fecha de Expiración del Aviso</label>
-                        <div class="input-group">
-                            <input type="date" class="form-control edit-control border-end-0 shadow-none"
-                                value="2026-05-25">
-                            <span class="input-group-text border-start-0 bg-light-input text-muted"><i
-                                    class="bi bi-calendar-event"></i></span>
-                        </div>
+                        <label class="form-label text-secondary small fw-bold">Disponibilidad en la App</label>
+                        <select class="form-select edit-select shadow-none" [(ngModel)]="placeDto.stateToPublic">
+                            <option [ngValue]="true">Abierto al Público</option>
+                            <option [ngValue]="false">Cerrado / Mantenimiento</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -155,5 +264,5 @@
         </div>
 
     </div>
-
+    }
 </div>

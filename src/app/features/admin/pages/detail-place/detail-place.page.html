@@ -1,0 +1,146 @@
+<div class="detail-place-container">
+
+    <!-- CABECERA -->
+    <div class="detail-header mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div class="header-info">
+            <a [routerLink]="['/admin/place']"
+                class="btn-back text-decoration-none d-inline-flex align-items-center gap-2 mb-2">
+                <i class="bi bi-arrow-left"></i> Volver a Lugares
+            </a>
+            <h1 class="fw-extrabold text-dark-green tracking-tight m-0">Vista Previa del Atractivo</h1>
+            <p class="text-secondary small m-0">Revisa cómo visualizarán los turistas este destino desde la aplicación móvil pública.</p>
+        </div>
+
+        <a [routerLink]="['/admin/place/edit', idPlace]"
+            class="btn btn-emerald-edit rounded-pill px-4 py-2.5 fw-bold shadow-sm d-flex align-items-center gap-2 text-decoration-none">
+            <i class="bi bi-pencil-square"></i> Modificar Información
+        </a>
+    </div>
+
+    @if (cargando) {
+    <div class="text-center p-5 text-muted">
+        <div class="spinner-border text-success mb-2" role="status"></div>
+        <span class="d-block small">Cargando catálogo multimedia de SQL Server...</span>
+    </div>
+    } @else if (lugar) {
+    <div class="detail-grid">
+
+        <!-- SECCIÓN IZQUIERDA: GALERÍA MULTIMEDIA Y DETALLES -->
+        <div class="detail-column d-flex flex-column gap-4">
+            <div class="bg-white border rounded-4 p-4 shadow-sm">
+                <!-- Visor Grande Principal -->
+                <div class="main-preview-wrapper rounded-4 overflow-hidden mb-3 border shadow-xs position-relative">
+                    <img [src]="fotoSeleccionada || 'assets/img/placeholder.jpg'" class="w-100 h-100 object-cover animated fadeIn">
+                    <span class="badge bg-success position-absolute top-3 start-3 px-3 py-2 rounded-pill fw-bold shadow-sm">
+                        {{ lugar.categoryName }}
+                    </span>
+                </div>
+
+                <!-- Carrusel de Miniaturas Inferior -->
+                <div class="d-flex gap-2 overflow-x-auto pb-1 preview-carousel">
+                    @for (img of lugar.galleryUrls; track img) {
+                    <img [src]="img" 
+                         class="thumbnail-item border rounded-3 style-pointer" 
+                         [ngClass]="{'active-thumb': fotoSeleccionada === img}"
+                         (click)="cambiarFoto(img)">
+                    }
+                </div>
+            </div>
+
+            <!-- DESCRIPCIÓN, ACTIVIDADES Y RECOMENDACIONES -->
+            <div class="bg-white border rounded-4 p-4 shadow-sm">
+                <h3 class="fw-extrabold text-dark-green mb-2">{{ lugar.name }}</h3>
+                <p class="text-muted d-flex align-items-center gap-2 small mb-4">
+                    <i class="bi bi-geo-alt-fill text-turquesa"></i> {{ lugar.ubication }}, Tingo María
+                </p>
+
+                <h5 class="fw-bold text-dark-green mb-2">Reseña Informativa</h5>
+                <p class="text-secondary lh-lg mb-4 text-justify">{{ lugar.description }}</p>
+
+                <!-- 🎯 ACTIVIDADES PERMITIDAS -->
+                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-check-circle-fill text-emerald"></i> Actividades Permitidas
+                </h5>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    @if (lugar.activities && lugar.activities.length > 0) {
+                        @for (actividad of lugar.activities; track actividad) {
+                            <span class="badge activity-chip px-3 py-2 rounded-pill fw-semibold d-inline-flex align-items-center gap-1.5">
+                                <i class="bi bi-person-walking text-turquesa"></i> {{ actividad }}
+                            </span>
+                        }
+                    } @else {
+                        <p class="text-muted small m-0 fst-italic">No se han registrado actividades específicas para este lugar.</p>
+                    }
+                </div>
+
+                <h5 class="fw-bold text-dark-green mb-3">Recomendaciones para el Turista</h5>
+                <div class="p-3 bg-light-tingo border rounded-4">
+                    <p class="text-secondary m-0 lh-base"><i class="bi bi-shield-check text-success me-2"></i>{{ lugar.recommendations }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DERECHA: TARIFAS, HORARIOS Y MAPA -->
+        <div class="detail-column d-flex flex-column gap-4">
+            
+            <!-- TARIFARIO CARD -->
+            <div class="bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-ticket-perforated-fill text-turquesa"></i> Control de Ingreso y Horarios
+                </h5>
+
+                <div class="d-flex flex-column gap-3">
+                    <div class="d-flex align-items-center justify-content-between p-3 border rounded-3 bg-light-input">
+                        <span class="small text-secondary fw-semibold">Días y Horarios:</span>
+                        <span class="small text-dark-green fw-bold">{{ lugar.businessHours }}</span>
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="p-3 border rounded-3 text-center bg-white shadow-2xs">
+                                <span class="extra-small text-muted d-block mb-1">PRECIO ADULTOS</span>
+                                <h4 class="fw-extrabold text-dark-green m-0">S/. {{ lugar.costAdult | number:'1.2-2' }}</h4>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 border rounded-3 text-center bg-white shadow-2xs">
+                                <span class="extra-small text-muted d-block mb-1">PRECIO NIÑOS</span>
+                                <h4 class="fw-extrabold text-turquesa m-0">S/. {{ lugar.costChild | number:'1.2-2' }}</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between p-2.5 border rounded-3 mt-1">
+                        <span class="small text-secondary fw-semibold">Estado de Visibilidad:</span>
+                        <span class="badge rounded-pill px-3 py-1.5 fw-bold"
+                              [ngClass]="lugar.destinationState === 'Abierto al Público' ? 'bg-emerald text-white' : 'bg-secondary text-white'">
+                            {{ lugar.destinationState }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAPA EN TIEMPO REAL -->
+            <div class="bg-white border rounded-4 p-4 shadow-sm">
+                <h5 class="fw-bold text-dark-green mb-2 d-flex align-items-center gap-2">
+                    <i class="bi bi-compass-fill text-turquesa"></i> Mapa de Ruta Satelital
+                </h5>
+                <p class="text-muted extra-small mb-3">Ubicación exacta registrada en la base de datos para los sistemas de GPS móviles.</p>
+
+                <div class="detail-map-box border rounded-4 overflow-hidden shadow-xs">
+                    @if (mapaUrlSeguro) {
+                        <iframe [src]="mapaUrlSeguro" class="w-100 h-100 border-0" allowfullscreen="" loading="lazy"></iframe>
+                    } @else {
+                        <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center bg-light text-muted p-4 text-center">
+                            <i class="bi bi-geo-alt fs-2 mb-1"></i>
+                            <span class="small">Este destino no cuenta con un enlace de geolocalización válido.</span>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    }
+</div>

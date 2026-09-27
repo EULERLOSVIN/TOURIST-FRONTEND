@@ -91,13 +91,19 @@
     padding: 0.7rem 2rem 0.7rem 1rem;
     color: #1e293b;
     background-color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.reg-select:focus {
+    border-color: #22937e;
+    box-shadow: 0 0 0 3px rgba(34, 147, 126, 0.1) !important;
 }
 
 /* --- ZONA DROPZONE MULTIMEDIA MULTIPLE --- */
 .media-uploader-box {
     border: 2px dashed #b3cbbd;
     background-color: #fcfdfe;
-    height: 180px;
+    height: 120px; 
     cursor: pointer;
     position: relative;
     transition: all 0.3s ease;
@@ -133,9 +139,35 @@
 
 /* --- MINI MAPA PREVIO --- */
 .map-preview {
-    height: 150px;
+    height: 170px;
     background-color: #e3ede8;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #cbd5e1;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 🚀 Estilos de usabilidad: Se activa cuando no hay mapa cargado todavía */
+.map-clickable {
+    cursor: pointer !important;
+    
+    &:hover {
+        border-color: #22937e !important;
+        background-color: #d8e5df !important;
+        box-shadow: 0 6px 14px rgba(34, 147, 126, 0.12);
+        
+        .map-pin {
+            transform: scale(1.1);
+            background-color: #15553e !important;
+        }
+        
+        .badge {
+            background-color: #2aa790 !important;
+        }
+    }
+}
+
+.map-action-overlay {
+    position: relative;
+    pointer-events: none; // Evita interferir con los clics reales del contenedor padre
 }
 
 .map-grid-pattern {
@@ -148,11 +180,11 @@
 }
 
 .map-pin {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-    z-index: 2;
-    box-shadow: 0 4px 12px rgba(15, 38, 42, 0.2);
+    width: 42px;
+    height: 42px;
+    font-size: 1.25rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(15, 38, 42, 0.15);
 }
 
 /* --- BOTONES DE GRAVEDAD CLIMÁTICA --- */
@@ -169,20 +201,6 @@
     background-color: #e0f2fe;
     color: #0369a1;
     border-color: #bae6fd;
-}
-
-.btn-sev.btn-sev-yellow:hover,
-.btn-sev.btn-sev-yellow.active {
-    background-color: #fef9c3;
-    color: #a16207;
-    border-color: #fef08a;
-}
-
-.btn-sev.btn-sev-red:hover,
-.btn-sev.btn-sev-red.active {
-    background-color: #fee2e2;
-    color: #b91c1c;
-    border-color: #fca5a5;
 }
 
 /* --- AUXILIARES --- */
@@ -219,3 +237,10 @@
 .extra-small {
     font-size: 0.75rem;
 }
+
+.line-height-none {
+    line-height: 1;
+}
+
+.top-1 { top: 4px; }
+.end-1 { end: 4px; }

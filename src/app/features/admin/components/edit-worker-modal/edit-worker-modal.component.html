@@ -5,7 +5,8 @@
         <div class="modal-header-tingo d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h4 class="fw-extrabold text-dark-green tracking-tight m-0">Editar Trabajador</h4>
-                <p class="text-secondary small m-0">Modifica los accesos, rol o datos de {{ trabajador?.nombre }}.</p>
+                <!-- El nombre se lee directo del objeto dinámico inyectado -->
+                <p class="text-secondary small m-0">Modifica los accesos, rol o datos de {{ trabajador?.name }}.</p>
             </div>
             <button (click)="cerrar()" class="btn-close-modal">
                 <i class="bi bi-x-lg"></i>
@@ -18,8 +19,7 @@
                 <label class="form-label text-secondary small fw-bold">Nombre Completo</label>
                 <div class="input-group-tingo">
                     <i class="bi bi-person-fill"></i>
-                    <input type="text" class="form-control tingo-control"
-                        name="nombre">
+                    <input type="text" [(ngModel)]="trabajadorEditado.name" name="name" class="form-control tingo-control">
                 </div>
             </div>
 
@@ -28,16 +28,14 @@
                     <label class="form-label text-secondary small fw-bold">DNI / Identificación</label>
                     <div class="input-group-tingo">
                         <i class="bi bi-card-heading"></i>
-                        <input type="text" class="form-control tingo-control"
-                            name="dni">
+                        <input type="text" [(ngModel)]="trabajadorEditado.dni" name="dni" maxlength="8" class="form-control tingo-control">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label text-secondary small fw-bold">Rol Administrativo</label>
-                    <select class="form-select tingo-select" name="rol">
-                        <option value="Super Admin">Super Admin</option>
-                        <option value="Editor de Contenido">Editor de Contenido</option>
-                        <option value="Soporte Técnico">Soporte Técnico</option>
+                    <!-- 🔄 Iteración dinámica de roles cargados de SQL Server -->
+                    <select [(ngModel)]="trabajadorEditado.idRole" name="idRole" class="form-select tingo-select">
+                        <option *ngFor="let r of roles" [value]="r.idRole">{{ r.roleName }}</option>
                     </select>
                 </div>
             </div>
@@ -46,16 +44,15 @@
                 <label class="form-label text-secondary small fw-bold">Correo Institucional</label>
                 <div class="input-group-tingo">
                     <i class="bi bi-envelope-at-fill"></i>
-                    <input type="email" class="form-control tingo-control"
-                        name="correo">
+                    <input type="email" [(ngModel)]="trabajadorEditado.email" name="email" class="form-control tingo-control">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="form-label text-secondary small fw-bold">Estado del Usuario</label>
-                <select class="form-select tingo-select" name="estado">
-                    <option value="Activo">Activo</option>
-                    <option value="Inactivo">Inactivo</option>
+                <!-- 🔄 Iteración dinámica de estados cargados de SQL Server -->
+                <select [(ngModel)]="trabajadorEditado.idAccountState" name="idAccountState" class="form-select tingo-select">
+                    <option *ngFor="let s of estados" [value]="s.idAccountState">{{ s.stateName }}</option>
                 </select>
             </div>
 

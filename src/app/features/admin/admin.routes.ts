@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { adminAuthGuard } from '../../core/guards/admin-auth.guard';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -7,6 +8,7 @@ export const ADMIN_ROUTES: Routes = [
   },
   {
     path: '',
+    canActivate: [adminAuthGuard], // 🔐 Protegemos todas las rutas bajo /admin con nuestro guard
     loadComponent: () => import('../../layouts/admin/admin.layout').then(m => m.AdminLayout),
     children: [
       {
@@ -19,11 +21,15 @@ export const ADMIN_ROUTES: Routes = [
       },
       {
         path: 'place',
-        loadComponent: () => import('./pages/place/place.page').then(m => m.PlacePage),    
+        loadComponent: () => import('./pages/place/place.page').then(m => m.PlacePage),
       },
       {
-        path: 'place/edit',
+        path: 'place/edit/:id',
         loadComponent: () => import('./pages/edit-place/edit-place.page').then(m => m.EditPlacePage)
+      },
+      {
+        path: 'place/detail/:id',
+        loadComponent: () => import('./pages/detail-place/detail-place.page').then(m => m.DetailPlacePage)
       },
       {
         path: 'place/new-place',
@@ -37,10 +43,10 @@ export const ADMIN_ROUTES: Routes = [
         path: 'configuration',
         loadComponent: () => import('./pages/configuration/configuration.page').then(m => m.ConfigurationPage)
       },
-      { 
-        path: '', 
-        redirectTo: 'dashboard', 
-        pathMatch: 'full' 
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
       }
     ]
   }

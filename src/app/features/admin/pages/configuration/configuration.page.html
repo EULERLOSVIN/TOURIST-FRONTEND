@@ -3,15 +3,19 @@
     <div class="dashboard-header mb-4">
         <div class="header-info">
             <h1 class="fw-extrabold text-dark-green tracking-tight mb-1">Configuración del Sistema</h1>
-            <p class="text-secondary m-0">Controla el contenido de la portada principal, parámetros globales y estados
-                de la plataforma.</p>
+            <p class="text-secondary m-0">Controla las imágenes de portada principal e inicio de sesión de la plataforma.</p>
         </div>
     </div>
 
-    <div class="config-grid">
+    @if (cargandoPagina) {
+        <div class="text-center p-5 bg-white border rounded-4 text-muted">
+            <div class="spinner-border text-turquesa mb-2" role="status"></div>
+            <span class="d-block small">Cargando parámetros globales...</span>
+        </div>
+    } @else {
+        <div class="config-grid">
 
-        <div class="config-column d-flex flex-column gap-4">
-
+            <!-- 🖼️ TARJETA 1: CONTENIDO DE LA PORTADA PRINCIPAL -->
             <div class="config-card p-4 bg-white border rounded-4 shadow-sm">
                 <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
                     <i class="bi bi-window-sidebar text-turquesa"></i> Contenido de la Portada Principal
@@ -19,129 +23,128 @@
 
                 <form (submit)="$event.preventDefault()" class="d-flex flex-column gap-3">
                     <div>
-                        <label class="form-label text-secondary small fw-bold">Título Principal (Hero Slangan)</label>
+                        <label class="form-label text-secondary small fw-bold">Título Principal (Hero Slogan)</label>
                         <input type="text" class="form-control config-control shadow-none"
-                            value="Descubre la magia de Tingo María">
+                            placeholder="Ej: Descubre la magia de Tingo María"
+                            [(ngModel)]="heroForm.titleMain" name="heroTitleMain">
                     </div>
 
                     <div>
                         <label class="form-label text-secondary small fw-bold">Subtítulo / Descripción Corta</label>
-                        <textarea class="form-control config-control shadow-none"
-                            rows="2">Explora cataratas misteriosas, cuevas ancestrales y vive la aventura en la selva peruana.</textarea>
+                        <textarea class="form-control config-control shadow-none" rows="2"
+                            placeholder="Ej: Explora cataratas misteriosas, cuevas ancestrales..."
+                            [(ngModel)]="heroForm.subtitle" name="heroSubtitle"></textarea>
                     </div>
 
                     <div>
-                        <label class="form-label text-secondary small fw-bold d-block">Imagen de Fondo Banner</label>
-                        <div class="banner-preview-box border rounded-3 position-relative mb-2 overflow-hidden">
-                            <div
-                                class="banner-overlay d-flex align-items-center justify-content-center text-white small fw-semibold">
+                        <label class="form-label text-secondary small fw-bold d-block">Imagen de Fondo Banner (Landing)</label>
+                        
+                        <!-- Previsualizador con imagen dinámica -->
+                        <div class="banner-preview-box hero-preview border rounded-3 position-relative mb-2 overflow-hidden"
+                             [style.background-image]="heroForm.imageMainBase64OrUrl ? 'url(' + heroForm.imageMainBase64OrUrl + ')' : null"
+                             (click)="heroFileInput.click()">
+                            <div class="banner-overlay d-flex align-items-center justify-content-center text-white small fw-semibold">
                                 <i class="bi bi-camera-fill me-2"></i> Cambiar Imagen de Portada
                             </div>
                         </div>
-                        <span class="text-muted extra-small d-block">Resolución recomendada: 1920x1080px (Máx.
-                            2MB).</span>
+
+                        <!-- Input File Oculto -->
+                        <input #heroFileInput type="file" accept="image/*" class="d-none" (change)="onHeroImageSelected($event)">
+                        
+                        <span class="text-muted extra-small d-block">Resolución recomendada: 1920x1080px (Máx. 2MB).</span>
                     </div>
 
                     <button type="button"
-                        class="btn btn-emerald-save rounded-pill px-4 py-2 fw-semibold mt-2 align-self-start shadow-sm">
-                        Guardar Cambios de Portada
+                        class="btn btn-emerald-save rounded-pill px-4 py-2 fw-semibold mt-2 align-self-start shadow-sm d-flex align-items-center gap-2"
+                        [disabled]="guardandoHero"
+                        (click)="guardarHeroConfig()">
+                        @if (guardandoHero) {
+                            <span class="spinner-border spinner-border-sm" role="status"></span>
+                            <span>Guardando...</span>
+                        } @else {
+                            <span>Guardar Cambios de Portada</span>
+                        }
                     </button>
                 </form>
             </div>
 
+            <!-- 🔐 TARJETA 2: FONDO DE INICIO DE SESIÓN ADMINISTRATIVO -->
             <div class="config-card p-4 bg-white border rounded-4 shadow-sm">
-                <h5 class="fw-bold text-dark-green mb-2 d-flex align-items-center gap-2">
-                    <i class="bi bi-exclamation-triangle-fill text-warning-orange"></i> Avisos a Turistas (Cinta Global)
+                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-shield-lock-fill text-turquesa"></i> Fondo de Inicio de Sesión
                 </h5>
-                <p class="text-muted small mb-3">Muestra un mensaje importante en la parte superior de la web/app (Ej:
-                    Clima, vías cerradas).</p>
 
-                <div class="d-flex flex-column gap-3">
-                    <div class="form-check form-switch p-0 d-flex justify-content-between align-items-center">
-                        <label class="form-check-label fw-semibold text-dark-green small">Activar Barra de Aviso</label>
-                        <input class="form-check-input config-switch shadow-none m-0" type="checkbox">
-                    </div>
+                <form (submit)="$event.preventDefault()" class="d-flex flex-column gap-3">
+                    <p class="text-secondary small mb-1">
+                        Personaliza la imagen de fondo de alta resolución que se muestra en la pantalla de acceso para administradores.
+                    </p>
+
                     <div>
-                        <input type="text" class="form-control config-control shadow-none"
-                            placeholder="Ej: Temporada de lluvias intensa. Tomar precauciones en Cataratas.">
+                        <label class="form-label text-secondary small fw-bold d-block">Previsualización del Fondo (Login)</label>
+                        
+                        <!-- Previsualizador con imagen dinámica -->
+                        <div class="banner-preview-box login-preview border rounded-3 position-relative mb-2 overflow-hidden"
+                             [style.background-image]="loginBgForm.imageLoginBase64OrUrl ? 'url(' + loginBgForm.imageLoginBase64OrUrl + ')' : null"
+                             (click)="loginFileInput.click()">
+                            <div class="banner-overlay d-flex align-items-center justify-content-center text-white small fw-semibold">
+                                <i class="bi bi-image-fill me-2"></i> Cambiar Fondo de Login
+                            </div>
+                        </div>
+
+                        <!-- Input File Oculto -->
+                        <input #loginFileInput type="file" accept="image/*" class="d-none" (change)="onLoginBgSelected($event)">
+
+                        <span class="text-muted extra-small d-block">Resolución recomendada: 1920x1080px (Orientación horizontal, Máx. 3MB).</span>
                     </div>
-                </div>
+
+                    <button type="button"
+                        class="btn btn-emerald-save rounded-pill px-4 py-2 fw-semibold mt-2 align-self-start shadow-sm d-flex align-items-center gap-2"
+                        [disabled]="guardandoLoginBg"
+                        (click)="guardarLoginBgConfig()">
+                        @if (guardandoLoginBg) {
+                            <span class="spinner-border spinner-border-sm" role="status"></span>
+                            <span>Guardando...</span>
+                        } @else {
+                            <span>Guardar Fondo de Login</span>
+                        }
+                    </button>
+                </form>
             </div>
 
         </div>
-
-        <div class="config-column d-flex flex-column gap-4">
-
-            <div class="config-card p-4 bg-white border rounded-4 shadow-sm">
-                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
-                    <i class="bi bi-grid-3x3-gap-fill text-turquesa"></i> Secciones del Inicio
-                </h5>
-
-                <div class="d-flex flex-column gap-3">
-                    <span class="text-muted small d-block mb-1">Elige qué bloques se mostrarán activos en la página
-                        principal:</span>
-
-                    <div
-                        class="d-flex justify-content-between align-items-center p-2.5 rounded-3 border bg-light-tingo">
-                        <span class="small fw-semibold text-dark-green"><i
-                                class="bi bi-star-fill text-warning me-2"></i> Lugares Más Valorados</span>
-                        <div class="form-check form-switch m-0">
-                            <input class="form-check-input config-switch shadow-none" type="checkbox" checked>
-                        </div>
-                    </div>
-
-                    <div
-                        class="d-flex justify-content-between align-items-center p-2.5 rounded-3 border bg-light-tingo">
-                        <span class="small fw-semibold text-dark-green"><i
-                                class="bi bi-tags-fill text-secondary me-2"></i> Filtros por Categorías</span>
-                        <div class="form-check form-switch m-0">
-                            <input class="form-check-input config-switch shadow-none" type="checkbox" checked>
-                        </div>
-                    </div>
-
-                    <div
-                        class="d-flex justify-content-between align-items-center p-2.5 rounded-3 border bg-light-tingo">
-                        <span class="small fw-semibold text-dark-green"><i
-                                class="bi bi-chat-square-quote-fill text-secondary me-2"></i> Reseñas Recientes de
-                            Turistas</span>
-                        <div class="form-check form-switch m-0">
-                            <input class="form-check-input config-switch shadow-none" type="checkbox">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="config-card p-4 bg-white border rounded-4 shadow-sm">
-                <h5 class="fw-bold text-dark-green mb-3 d-flex align-items-center gap-2">
-                    <i class="bi bi-cpu-fill text-turquesa"></i> Integraciones y Enlaces
-                </h5>
-
-                <div class="d-flex flex-column gap-3">
-                    <div>
-                        <label class="form-label text-secondary small fw-bold">Enlace de Soporte (WhatsApp
-                            Corporativo)</label>
-                        <div class="input-group">
-                            <span class="input-group-text border-end-0 bg-white text-muted small"><i
-                                    class="bi bi-whatsapp"></i></span>
-                            <input type="text" class="form-control config-control border-start-0 shadow-none"
-                                value="https://wa.me/51900000000">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="form-label text-secondary small fw-bold">Límite de Reseñas por Usuario /
-                            Día</label>
-                        <select class="form-select config-select shadow-none">
-                            <option value="3">Máximo 3 reseñas diarias</option>
-                            <option value="5">Máximo 5 reseñas diarias</option>
-                            <option value="0">Sin límite</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
+    }
 
 </div>
+
+<!-- 🔔 MODAL PERSONALIZADO DE ALERTA -->
+@if (mostrarModal) {
+    <div class="custom-modal-backdrop d-flex align-items-center justify-content-center" (click)="cerrarModal()">
+        <div class="custom-modal-card p-4 rounded-4 bg-white text-center shadow-lg animate-modal-pop" (click)="$event.stopPropagation()">
+            
+            <!-- ICONO DINÁMICO -->
+            <div class="modal-icon-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
+                 [ngClass]="{
+                     'icon-success': modalTipo === 'success',
+                     'icon-error': modalTipo === 'error',
+                     'icon-warning': modalTipo === 'warning'
+                 }">
+                @if (modalTipo === 'success') {
+                    <i class="bi bi-check-lg"></i>
+                } @else if (modalTipo === 'error') {
+                    <i class="bi bi-x-lg"></i>
+                } @else {
+                    <i class="bi bi-exclamation-lg"></i>
+                }
+            </div>
+
+            <!-- TÍTULO Y MENSAJE -->
+            <h5 class="fw-bold text-dark-green mb-2">{{ modalTitulo }}</h5>
+            <p class="text-secondary small mb-4 px-2">{{ modalMensaje }}</p>
+
+            <!-- BOTÓN ACEPTAR -->
+            <button type="button" class="btn btn-emerald-save rounded-pill px-5 py-2 fw-semibold w-100" (click)="cerrarModal()">
+                Entendido
+            </button>
+        </div>
+    </div>
+}

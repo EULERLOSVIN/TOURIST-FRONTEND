@@ -93,84 +93,215 @@
   background-color: #f4f7f6 !important;
 }
 
+/* =========================================================================
+   🏷️ BADGES DE ROLES ESTILO CÁPSULA (COLORES VIVOS Y ENCENDIDOS PREMIUM)
+   ========================================================================= */
+.role-tag {
+  padding: 0.45rem 1.1rem !important;
+  border-radius: 50rem !important;
+  /* Forma de cápsula perfecta */
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  /* Texto grueso para resaltar sobre fondo sólido */
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 145px;
+  /* Ancho uniforme para evitar saltos de línea */
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+}
+
+/* Efecto reflectivo e interactivo sutil al pasar el cursor */
+.role-tag:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+  filter: brightness(1.1);
+}
+
+/* 🛡️ Super Admin -> Oro / Ámbar Energético (Máxima Jerarquía) */
+.super-admin {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.2);
+}
+
+/* 📝 Editor de Contenido -> Esmeralda Encendido (Identidad TingoGo) */
+.editor {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.2);
+}
+
+/* 🎧 Soporte Técnico -> Azul Eléctrico Vibrante (Enfoque Tecnológico) */
+.soporte {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 2px 6px rgba(29, 78, 216, 0.2);
+}
+
+/* =========================================================================
+   🎛️ BOTONES DE ACCIÓN EN LA FILA (DISEÑO PREMIUM DE ALTO CONTRASTE)
+   ========================================================================= */
+.btn-icon-action {
+  width: 38px;  /* 👈 Un poco más grandes para facilitar el clic */
+  height: 38px;
+  border-radius: 10px; /* Bordes suaves que hacen juego con las tarjetas */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem; /* Iconos más legibles */
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* 📝 Estilo específico para el botón de EDICIÓN (Línea Esmeralda) */
+.btn-icon-action.btn-edit-action {
+  background-color: rgba(141, 147, 34, 0.06) !important;
+  border: 1px solid rgb(232, 236, 15) !important;
+  color: #dfd000 !important;
+}
+
+.btn-icon-action.btn-edit-action:hover {
+  background-color: #f7ff11fd !important;
+  color: #000000 !important;
+  border-color: #ffe51f !important;
+  box-shadow: 0 4px 12px rgba(137, 147, 34, 0.25) !important;
+  transform: translateY(-1.5px);
+}
+
+/* 🗑️ Estilo específico para el botón de ELIMINACIÓN (Línea Carmín Destructiva) */
+.btn-icon-action.btn-delete-action {
+  background-color: rgba(229, 62, 62, 0.06) !important;
+  border: 1px solid rgba(229, 62, 62, 0.2) !important;
+  color: #e53e3e !important;
+}
+
+.btn-icon-action.btn-delete-action:hover {
+  background-color: #e53e3e !important;
+  color: #ffffff !important;
+  border-color: #e53e3e !important;
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.25) !important;
+  transform: translateY(-1.5px);
+}
+
+/* --- CLASES DE MARCA AUXILIARES --- */
+.text-dark-green {
+  color: #072a1a;
+}
+
+.text-turquesa {
+  color: #112d31;
+}
+
+.text-emerald {
+  color: #22937e;
+}
+
+.text-aqua {
+  color: #15553e;
+}
+
+.bg-turquesa-light {
+  background-color: rgba(17, 45, 49, 0.07);
+}
+
+.bg-emerald-light {
+  background-color: rgba(34, 147, 126, 0.08);
+}
+
+.bg-aqua-light {
+  background-color: rgba(21, 85, 62, 0.07);
+}
+
+.bg-success-subtle {
+  background-color: #e6f4ea !important;
+  color: #137333 !important;
+}
+
+.bg-danger-subtle {
+  background-color: #fce8e6 !important;
+  color: #c5221f !important;
+}
+
+.fw-extrabold {
+  font-weight: 800;
+}
+
+.tracking-tight {
+  letter-spacing: -0.02em;
+}
+
+.tracking-wider {
+  letter-spacing: 0.04em;
+}
+
+.shadow-xs {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* --- BOTONES DE PAGINACIÓN --- */
+.btn-pagination {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  transition: all 0.2s ease;
+}
+
+.btn-pagination:hover:not(:disabled) {
+  background-color: #ffffff;
+  color: #22937e;
+  border-color: #22937e;
+  box-shadow: 0 4px 10px rgba(34, 147, 126, 0.12);
+}
+
+.btn-pagination:disabled {
+  background-color: #f1f5f9;
+  color: #cbd5e1;
+  border-color: #e2e8f0;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* --- CORRECCIÓN DE FONDOS PARA AVATARES --- */
 .avatar-worker {
   width: 40px;
   height: 40px;
   font-size: 0.95rem;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-}
-
-/* Etiquetas de Roles Personalizadas */
-.role-tag {
-  padding: 0.35rem 0.75rem;
-  border-radius: 8px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  display: inline-block;
-}
-
-.role-tag.super-admin {
-  background-color: rgba(17, 45, 49, 0.07);
-  color: #112d31;
-}
-
-.role-tag.editor {
-  background-color: rgba(34, 147, 126, 0.08);
-  color: #15553e;
-}
-
-.role-tag.soporte {
-  background-color: #f1f5f9;
-  color: #475569;
-}
-
-/* Botones de acción en la fila */
-.btn-icon-action {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  display: inline-flex;
+  border-radius: 50%;
+  display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  color: #64748b;
-  transition: all 0.2s ease;
 }
 
-.btn-icon-action:hover {
-  background-color: #f1f5f9;
-  color: #072a1a;
-  border-color: #cbd5e1;
+/* Colores sólidos y elegantes de fondo para que las letras blancas resalten perfectamente */
+.bg-emerald {
+  background-color: #112d31 !important;
+  /* Tu verde oscuro/turquesa de marca */
 }
 
-.btn-icon-action.text-danger:hover {
-  background-color: #fff5f5;
-  color: #e53e3e !important;
-  border-color: #fed7d7;
+.bg-success {
+  background-color: #22937e !important;
+  /* Tu esmeralda de acción */
 }
 
-.btn-icon-action.text-success:hover {
-  background-color: #f0fdf4;
-  color: #16a34a !important;
-  border-color: #bbf7d0;
+.bg-dark-slate {
+  background-color: #64748b !important;
+  /* Gris slate para soporte técnico */
 }
-
-/* --- CLASES DE MARCA AUXILIARES --- */
-.text-dark-green { color: #072a1a; }
-.text-turquesa { color: #112d31; }
-.text-emerald { color: #22937e; }
-.text-aqua { color: #15553e; }
-
-.bg-turquesa-light { background-color: rgba(17, 45, 49, 0.07); }
-.bg-emerald-light { background-color: rgba(34, 147, 126, 0.08); }
-.bg-aqua-light { background-color: rgba(21, 85, 62, 0.07); }
-
-.bg-success-subtle { background-color: #e6f4ea !important; color: #137333 !important; }
-.bg-danger-subtle { background-color: #fce8e6 !important; color: #c5221f !important; }
-
-.fw-extrabold { font-weight: 800; }
-.tracking-tight { letter-spacing: -0.02em; }
-.tracking-wider { letter-spacing: 0.04em; }
-.shadow-xs { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04); }

@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainLayout } from './layouts/main/main.layout';
 
-
 export const routes: Routes = [
     {
         path: '',
@@ -16,5 +15,9 @@ export const routes: Routes = [
     {
         path: 'admin',
         loadChildren: () => import('./features/admin/admin.routes').then(m => m.ADMIN_ROUTES)
+    },
+    {
+        path: '**',
+        redirectTo: '' // Comportamiento comodín por si digitan una ruta inexistente
     }
 ];

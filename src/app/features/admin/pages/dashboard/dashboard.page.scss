@@ -19,7 +19,7 @@
   border-color: #e2e8f0 !important;
 }
 
-/* --- CUADRÍCULA DE TARJETAS METRICAS (CSS GRID RESPONSIVO) --- */
+/* --- CUADRÍCULA DE TARJETAS MÉTRICAS --- */
 .metrics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -29,14 +29,13 @@
 .metric-card {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
   border-color: #eaeaea !important;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 20px rgba(15, 38, 42, 0.05) !important;
+  }
 }
 
-.metric-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 20px rgba(15, 38, 42, 0.05) !important;
-}
-
-/* Contenedores circulares de iconos KPI */
 .card-icon-container {
   width: 48px;
   height: 48px;
@@ -51,14 +50,12 @@
 .content-grid {
   display: grid;
   grid-template-columns: 1.6fr 1fr;
-  /* El gráfico toma más espacio que las acciones rápidas */
   gap: 1.5rem;
 }
 
 @media (max-width: 992px) {
   .content-grid {
     grid-template-columns: 1fr;
-    /* Se apila verticalmente en pantallas medianas/chicas */
   }
 }
 
@@ -66,63 +63,135 @@
   border-color: #eaeaea !important;
 }
 
-/* --- GRÁFICO DE BARRAS SIMULADO --- */
+/* --- CONTENEDOR Y GRÁFICO BARRAS INTERACTIVO --- */
+.chart-container-box {
+  position: relative;
+}
+
 .chart-placeholder {
-  height: 180px;
+  height: 200px;
   border-bottom: 2px solid #f1f5f9;
 }
 
+/* Grupo por barra + Tooltip */
+.bar-group {
+  flex: 0 1 70px;
+  cursor: pointer;
+
+  &:hover {
+    .bar-chart-item {
+      background: linear-gradient(180deg, #2aa790 0%, #196349 100%) !important;
+      transform: translateY(-4px) scaleX(1.05);
+      box-shadow: 0 8px 16px rgba(34, 147, 126, 0.3);
+    }
+
+    .bar-count-badge {
+      color: #22937e !important;
+      font-size: 0.82rem;
+    }
+
+    .bar-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-8px);
+    }
+  }
+}
+
+/* 🟢 ESTILO VERDE UNIFORME Y VIVO EN TODAS LAS BARRAS */
 .bar-chart-item {
   width: 100%;
-  max-width: 32px;
-  background-color: #e2e8f0;
-  border-radius: 6px 6px 0 0;
-  transition: all 0.3s ease;
+  max-width: 38px;
+  min-width: 22px;
+  background: linear-gradient(180deg, #22937e 0%, #15553e 100%) !important;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: growUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: bottom;
 }
 
-.bar-chart-item:hover {
-  background-color: #15553e;
+/* Tooltip Flotante Estilizado */
+.bar-tooltip {
+  top: -45px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  background: #072a1a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px 5px 0;
+    border-style: solid;
+    border-color: #072a1a transparent;
+    display: block;
+    width: 0;
+  }
 }
 
-/* Barra destacada con tu verde esmeralda preferido */
-.bar-chart-item.active {
-  background: linear-gradient(180deg, #22937e 0%, #15553e 100%);
+.text-truncate-chart {
+  width: 70px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  color: #64748b;
+  transition: color 0.2s ease;
+}
+
+/* Punto Parpadeante 'En vivo' */
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #22937e;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 1.8s infinite;
 }
 
 /* --- BOTONES DE ACCIONES RÁPIDAS --- */
 .actions-stack {
   height: 180px;
   display: flex;
-  flex-column: justify;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .btn-action-quick {
   background-color: #f8faf9;
   border: 1px solid #e2ebd0;
   transition: all 0.2s ease;
-}
 
-.btn-action-quick:hover {
-  background-color: #ffffff;
-  border-color: #22937e;
-  box-shadow: 0 4px 12px rgba(34, 147, 126, 0.08);
+  &:hover {
+    background-color: #ffffff;
+    border-color: #22937e;
+    box-shadow: 0 4px 12px rgba(34, 147, 126, 0.08);
+  }
 }
 
 /* --- ESTILOS DE LA TABLA DE RESEÑAS --- */
 .table-light-tingo {
   background-color: #f4f7f6;
-}
 
-.table-light-tingo th {
-  background-color: #f4f7f6 !important;
+  th {
+    background-color: #f4f7f6 !important;
+  }
 }
 
 .table-hover tbody tr {
   transition: background-color 0.2s ease;
-}
 
-.table-hover tbody tr:hover {
-  background-color: #fafdff !important;
+  &:hover {
+    background-color: #fafdff !important;
+  }
 }
 
 .text-truncate-custom {
@@ -132,62 +201,49 @@
   text-overflow: ellipsis;
 }
 
-/* --- CLASES CROMÁTICAS AUXILIARES (SINTONIZADAS) --- */
-.text-dark-green {
-  color: #072a1a;
-}
+/* --- CLASES CROMÁTICAS Y UTILITARIAS --- */
+.text-dark-green { color: #072a1a; }
+.text-turquesa { color: #112d31; }
+.text-emerald { color: #22937e; }
+.text-aqua { color: #15553e; }
 
-.text-turquesa {
-  color: #112d31;
-}
+.bg-turquesa-light { background-color: rgba(17, 45, 49, 0.08); }
+.bg-emerald-light { background-color: rgba(34, 147, 126, 0.1); }
+.bg-aqua-light { background-color: rgba(21, 85, 62, 0.08); }
+.bg-warning-light { background-color: #fff9db; }
+.bg-warning-subtle { background-color: #fff3cd !important; }
 
-.text-emerald {
-  color: #22937e;
-}
+.text-warning-dark { color: #856404 !important; }
 
-.text-aqua {
-  color: #15553e;
-}
+.fw-extrabold { font-weight: 800; }
+.tracking-tight { letter-spacing: -0.02em; }
+.tracking-wider { letter-spacing: 0.05em; }
+.extra-small { font-size: 0.72rem; }
 
-.bg-turquesa-light {
-  background-color: rgba(17, 45, 49, 0.08);
-}
-
-.bg-emerald-light {
-  background-color: rgba(34, 147, 126, 0.1);
-}
-
-.bg-aqua-light {
-  background-color: rgba(21, 85, 62, 0.08);
-}
-
-.bg-warning-light {
-  background-color: #fff9db;
-}
-
-.bg-success-subtle {
-  background-color: #d1e7dd !important;
-}
-
-.fw-extrabold {
-  font-weight: 800;
-}
-
-.tracking-tight {
-  letter-spacing: -0.02em;
-}
-
-.tracking-wider {
-  letter-spacing: 0.05em;
+.border-dashed {
+  border-style: dashed !important;
+  border-color: #cbd5e1 !important;
 }
 
 .btn-outline-turquesa {
   color: #22937e;
   border: 1px solid #22937e;
   transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #22937e;
+    color: #ffffff;
+  }
 }
 
-.btn-outline-turquesa:hover {
-  background-color: #22937e;
-  color: #ffffff;
+/* ANIMACIONES KEYFRAMES */
+@keyframes growUp {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(34, 147, 126, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(34, 147, 126, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 147, 126, 0); }
 }

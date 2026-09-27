@@ -1,18 +1,13 @@
-
+/* ==========================================================================
+   1. SECCIÓN HERO (PORTADA PRINCIPAL)
+   ========================================================================== */
 .hero-container {
   padding-top: 72px;
-}
-
-.z-1 {
-  z-index: 1;
-}
-
-.text-shadow {
-  text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
-}
-
-.text-dark-green {
-  color: #072a1a;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 
 .hero-bg-image {
@@ -24,6 +19,29 @@
   object-fit: cover;
   object-position: center;
   z-index: 0;
+  background-repeat: no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1;
+}
+
+.z-1 {
+  z-index: 2;
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.text-dark-green {
+  color: #072a1a !important;
 }
 
 .btn-dark-green {
@@ -31,14 +49,17 @@
   color: #ffffff;
   border: none;
   transition: background-color 0.2s ease, transform 0.1s ease;
+
+  &:hover {
+    background-color: #0c3823;
+    color: #ffffff;
+    transform: scale(1.01);
+  }
 }
 
-.btn-dark-green:hover {
-  background-color: #0c3823;
-  color: #ffffff;
-  transform: scale(1.01);
-}
-
+/* ==========================================================================
+   2. BOTONES DE FILTRADO
+   ========================================================================== */
 .btn-filter {
   background-color: #e9ecef;
   color: #495057;
@@ -48,27 +69,25 @@
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.25s ease;
-}
 
-/* Estado activo y hover cambian al verde de la marca */
-.btn-filter:hover, 
-.btn-filter.active {
-  background-color: #0c3823;
-  color: #ffffff !important;
+  &:hover, 
+  &.active {
+    background-color: #0c3823;
+    color: #ffffff !important;
+  }
 }
-
 
 /* ==========================================================================
-   4. ESTRUCTURA Y SIMETRÍA DE TARJETAS (DESTINOS)
+   3. ESTRUCTURA Y DISEÑO EXACTO DE LAS TARJETAS (DESTINOS)
    ========================================================================== */
 .destination-card {
-  border-radius: 24px;
+  border-radius: 24px !important;
   height: 380px;
   position: relative;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
 }
 
-/* Control de la imagen interna */
 .destination-img {
   width: 100%;
   height: 100%;
@@ -77,19 +96,27 @@
 }
 
 .destination-card:hover .destination-img {
-  transform: scale(1.05);
+  transform: scale(1.04);
+}
+
+.card-body-overlay {
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  width: calc(100% - 28px) !important;
+  padding: 1.1rem 1.25rem !important;
+  z-index: 2;
 }
 
 .bg-white-blur {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  width: calc(100% - 2rem) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  background: rgba(238, 242, 239, 0.88) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .btn-heart {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.92);
   border: none;
   border-radius: 50%;
   width: 42px;
@@ -97,31 +124,68 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
+  z-index: 3;
   transition: background-color 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #ffffff;
+    transform: scale(1.1);
+  }
 }
 
-.btn-heart:hover {
+.bg-emerald-tag {
+  background-color: #198754 !important;
+  color: #ffffff !important;
+  font-size: 0.78rem;
+  padding: 0.45em 0.75em;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   4. ESTILOS DE PAGINACIÓN Y UTILIDADES
+   ========================================================================== */
+.btn-pagination {
   background-color: #ffffff;
-  transform: scale(1.1);
+  border: 1px solid #e2e8f0;
+  color: #072a1a;
+  font-size: 0.88rem;
+  transition: all 0.25s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #072a1a;
+    color: #ffffff;
+    border-color: #072a1a;
+    box-shadow: 0 4px 12px rgba(7, 42, 26, 0.15);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #f8fafc;
+    border-color: #f1f5f9;
+  }
 }
 
-.bg-success-dark { 
-  background-color: #0e4627; 
-  color: #ffffff; 
+.animated {
+  animation-duration: 0.35s;
+  animation-fill-mode: both;
 }
 
-.bg-blue-dark { 
-  background-color: #0c4366; 
-  color: #ffffff; 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.bg-teal-dark { 
-  background-color: #115e59; 
-  color: #ffffff; 
+.fadeIn {
+  animation-name: fadeIn;
 }
 
-.bg-olive-dark { 
-  background-color: #143d11; 
-  color: #ffffff; 
+.search-bar-container {
+  border: 1px solid #e2e8f0;
+  transition: box-shadow 0.2s ease;
+  
+  &:focus-within {
+    box-shadow: 0 10px 25px rgba(7, 42, 26, 0.08) !important;
+  }
 }

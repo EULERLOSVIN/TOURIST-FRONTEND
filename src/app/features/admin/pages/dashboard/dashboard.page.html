@@ -1,15 +1,17 @@
 <div class="dashboard-container">
   
+  <!-- 🟢 HEADER PRINCIPAL -->
   <div class="dashboard-header mb-5">
     <div class="header-info">
       <h1 class="fw-extrabold text-dark-green tracking-tight mb-1">¡Bienvenido de vuelta, Admin!</h1>
       <p class="text-secondary m-0">Aquí está el resumen de lo que sucede hoy en TingoGo.</p>
     </div>
     <div class="header-date px-3 py-2 rounded-3 shadow-xs bg-white text-dark-green fw-semibold border">
-      <i class="bi bi-calendar3 me-2 text-turquesa"></i> Mayo 2026
+      <i class="bi bi-calendar3 me-2 text-turquesa"></i> Julio 2026
     </div>
   </div>
 
+  <!-- 📊 MÉTRICAS KPI DINÁMICAS -->
   <div class="metrics-grid mb-5">
     
     <div class="metric-card shadow-sm border bg-white rounded-4 p-4">
@@ -18,9 +20,9 @@
       </div>
       <div class="card-data mt-3">
         <span class="text-secondary small fw-medium text-uppercase tracking-wider">Lugares Totales</span>
-        <h3 class="fw-bold text-dark-green m-0 mt-1">42</h3>
+        <h3 class="fw-bold text-dark-green m-0 mt-1">{{ totalLugares }}</h3>
         <span class="text-success small fw-semibold d-block mt-2">
-          <i class="bi bi-arrow-up-short"></i> +3 este mes
+          <i class="bi bi-check-circle-fill me-1"></i> Registrados en Tingo María
         </span>
       </div>
     </div>
@@ -31,7 +33,7 @@
       </div>
       <div class="card-data mt-3">
         <span class="text-secondary small fw-medium text-uppercase tracking-wider">Trabajadores</span>
-        <h3 class="fw-bold text-dark-green m-0 mt-1">12</h3>
+        <h3 class="fw-bold text-dark-green m-0 mt-1">{{ totalTrabajadores }}</h3>
         <span class="text-muted small fw-medium d-block mt-2">Administradores del sitio</span>
       </div>
     </div>
@@ -41,61 +43,98 @@
         <i class="bi bi-chat-square-heart-fill"></i>
       </div>
       <div class="card-data mt-3">
-        <span class="text-secondary small fw-medium text-uppercase tracking-wider">Reseñas Guardadas</span>
-        <h3 class="fw-bold text-dark-green m-0 mt-1">1,284</h3>
+        <span class="text-secondary small fw-medium text-uppercase tracking-wider">Reseñas Aprobadas</span>
+        <h3 class="fw-bold text-dark-green m-0 mt-1">{{ totalResenasAprobadas }}</h3>
         <span class="text-success small fw-semibold d-block mt-2">
-          <i class="bi bi-arrow-up-short"></i> +18% vs semana pasada
+          <i class="bi bi-arrow-up-short"></i> Visibles al público
         </span>
       </div>
     </div>
 
     <div class="metric-card shadow-sm border bg-white rounded-4 p-4">
       <div class="card-icon-container bg-warning-light text-warning">
-        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-clock-history"></i>
       </div>
       <div class="card-data mt-3">
-        <span class="text-secondary small fw-medium text-uppercase tracking-wider">Calificación Promedio</span>
-        <h3 class="fw-bold text-dark-green m-0 mt-1">4.8 / 5.0</h3>
-        <div class="mt-2 text-warning small">
-          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+        <span class="text-secondary small fw-medium text-uppercase tracking-wider">Por Moderar</span>
+        <h3 class="fw-bold text-dark-green m-0 mt-1">{{ totalResenasPendientes }}</h3>
+        <div class="mt-2 text-warning small fw-semibold">
+          <i class="bi bi-exclamation-circle-fill me-1"></i> Reseñas pendientes
         </div>
       </div>
     </div>
 
   </div>
 
+  <!-- SECCIÓN INTERMEDIA: GRÁFICO BARRAS + OPERACIONES RÁPIDAS -->
   <div class="content-grid mb-5">
     
+    <!-- 📊 GRÁFICO DE BARRAS INTERACTIVO (TODAS VERDES) -->
     <div class="content-card shadow-sm border bg-white rounded-4 p-4">
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <h5 class="fw-bold text-dark-green m-0">Monitoreo de Actividad</h5>
-        <span class="badge rounded-pill bg-light text-dark border">En vivo</span>
+        <div>
+          <h5 class="fw-bold text-dark-green m-0">Cantidad de Reseñas por Lugar</h5>
+          <p class="text-muted extra-small m-0">Lugares con mayor número de opiniones (Aprobadas + Pendientes)</p>
+        </div>
+        <span class="badge rounded-pill bg-light text-dark border d-flex align-items-center gap-1 px-3 py-1.5">
+          <span class="pulse-dot"></span> En vivo
+        </span>
       </div>
-      <div class="chart-placeholder d-flex align-items-end justify-content-between gap-2 px-3">
-        <div class="bar-chart-item" style="height: 40%"></div>
-        <div class="bar-chart-item" style="height: 55%"></div>
-        <div class="bar-chart-item" style="height: 75%"></div>
-        <div class="bar-chart-item" style="height: 60%"></div>
-        <div class="bar-chart-item active" style="height: 90%"></div>
-        <div class="bar-chart-item" style="height: 70%"></div>
-        <div class="bar-chart-item" style="height: 85%"></div>
-      </div>
-      <div class="d-flex justify-content-between text-muted small mt-3 px-1">
-        <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+
+      <div class="chart-container-box">
+        <div class="chart-placeholder d-flex align-items-end justify-content-center gap-4 px-3">
+          @if (cargando) {
+            <div class="w-100 text-center text-muted small py-4 align-self-center">
+              <div class="spinner-border spinner-border-sm text-turquesa mb-1" role="status"></div>
+              <span class="d-block extra-small">Cargando gráfico...</span>
+            </div>
+          } @else if (chartData.length > 0) {
+            @for (item of chartData; track item.placeName) {
+              <div class="bar-group d-flex flex-column align-items-center position-relative" style="height: 100%; justify-content: flex-end;">
+                
+                <!-- 💬 Tooltip Flotante al Hover -->
+                <div class="bar-tooltip position-absolute shadow-sm rounded-3 py-1 px-2 text-white extra-small text-nowrap">
+                  <span class="fw-bold d-block">{{ item.placeName }}</span>
+                  <span class="opacity-85">{{ item.reviewCount }} {{ item.reviewCount === 1 ? 'reseña' : 'reseñas' }}</span>
+                </div>
+
+                <!-- 🔢 Indicador Numérico -->
+                <span class="extra-small text-muted fw-bold mb-1 bar-count-badge">{{ item.reviewCount }}</span>
+                
+                <!-- 📊 Barra Verde Uniforme -->
+                <div class="bar-chart-item" 
+                     [style.height.%]="item.percentageHeight">
+                </div>
+              </div>
+            }
+          } @else {
+            <div class="w-100 text-center text-muted small py-4 align-self-center">
+              No hay datos suficientes para calcular las reseñas por lugar.
+            </div>
+          }
+        </div>
+
+        <!-- Etiquetas inferiores -->
+        <div class="d-flex justify-content-center gap-4 text-muted extra-small mt-3 px-1 text-center">
+          @for (item of chartData; track item.placeName) {
+            <span class="text-truncate-chart px-1" [title]="item.placeName">{{ item.placeName }}</span>
+          }
+        </div>
       </div>
     </div>
 
+    <!-- ⚡ OPERACIONES RÁPIDAS -->
     <div class="content-card shadow-sm border bg-white rounded-4 p-4">
       <h5 class="fw-bold text-dark-green mb-4">Operaciones Rápidas</h5>
       <div class="actions-stack d-flex flex-column gap-3">
-        <a  class="btn btn-action-quick d-flex align-items-center justify-content-between p-3 rounded-3 text-decoration-none">
+        <a routerLink="/admin/place/new-place" class="btn btn-action-quick d-flex align-items-center justify-content-between p-3 rounded-3 text-decoration-none">
           <div class="d-flex align-items-center gap-3">
             <i class="bi bi-plus-circle-fill text-turquesa fs-5"></i>
             <span class="fw-semibold text-dark-green">Agregar Nuevo Lugar</span>
           </div>
           <i class="bi bi-chevron-right text-muted small"></i>
         </a>
-        <a class="btn btn-action-quick d-flex align-items-center justify-content-between p-3 rounded-3 text-decoration-none">
+        <a routerLink="/admin/workers" class="btn btn-action-quick d-flex align-items-center justify-content-between p-3 rounded-3 text-decoration-none">
           <div class="d-flex align-items-center gap-3">
             <i class="bi bi-person-plus-fill text-emerald fs-5"></i>
             <span class="fw-semibold text-dark-green">Dar de alta a Administrador</span>
@@ -107,13 +146,16 @@
 
   </div>
 
+  <!-- 💬 TABLA DE ÚLTIMAS RESEÑAS RECIBIDAS (PENDIENTES DE APROBACIÓN) -->
   <div class="content-card shadow-sm border bg-white rounded-4 p-4 mb-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <div>
-        <h5 class="fw-bold text-dark-green m-0">Últimas Reseñas Recibidas</h5>
-        <p class="text-muted small m-0">Opiniones de turistas sobre los destinos de Tingo María.</p>
+        <h5 class="fw-bold text-dark-green m-0">Reseñas Pendientes de Aprobación</h5>
+        <p class="text-muted small m-0">Opiniones recibidas que requieren revisión por parte del administrador.</p>
       </div>
-      <a class="btn btn-sm btn-outline-turquesa rounded-pill px-3 fw-semibold">Ver todas</a>
+      <a routerLink="/admin/reviews" class="btn btn-sm btn-outline-turquesa rounded-pill px-3 fw-semibold">
+        Ir a Moderación
+      </a>
     </div>
 
     <div class="table-responsive">
@@ -128,20 +170,39 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="px-3 py-3 fw-semibold text-dark-green">Carlos Mendoza</td>
-            <td>Cueva de las Pavas</td>
-            <td class="text-secondary text-truncate-custom">"Un lugar mágico, super fresco y la comida del lugar espectacular..."</td>
-            <td><span class="text-warning"><i class="bi bi-star-fill"></i> 5.0</span></td>
-            <td class="text-end px-3"><span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill small fw-bold">Aprobado</span></td>
-          </tr>
-          <tr>
-            <td class="px-3 py-3 fw-semibold text-dark-green">Elena Rostro</td>
-            <td>Bella Durmiente</td>
-            <td class="text-secondary text-truncate-custom">"La vista desde el mirador es increíble. Muy recomendado el recorrido."</td>
-            <td><span class="text-warning"><i class="bi bi-star-fill"></i> 4.5</span></td>
-            <td class="text-end px-3"><span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill small fw-bold">Aprobado</span></td>
-          </tr>
+          @if (cargando) {
+            <tr>
+              <td colspan="5" class="text-center py-4 text-muted">
+                <div class="spinner-border spinner-border-sm text-turquesa me-2" role="status"></div>
+                Cargando reseñas pendientes...
+              </td>
+            </tr>
+          } @else {
+            @for (resena of resenasPendientes; track resena.idComment) {
+              <tr>
+                <td class="px-3 py-3 fw-semibold text-dark-green">{{ resena.nameUser }}</td>
+                <td><span class="fw-semibold text-turquesa">{{ resena.placeName }}</span></td>
+                <td class="text-secondary text-truncate-custom">"{{ resena.commentText }}"</td>
+                <td>
+                  <span class="text-warning fw-bold">
+                    <i class="bi bi-star-fill me-1"></i> {{ resena.qualification | number:'1.1-1' }}
+                  </span>
+                </td>
+                <td class="text-end px-3">
+                  <span class="badge bg-warning-subtle text-warning-dark px-3 py-2 rounded-pill small fw-bold">
+                    Pendiente
+                  </span>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="5" class="text-center py-4 text-muted border-dashed">
+                  <i class="bi bi-check-circle fs-3 text-success d-block mb-1"></i>
+                  ¡Genial! No hay reseñas pendientes de revisión en este momento.
+                </td>
+              </tr>
+            }
+          }
         </tbody>
       </table>
     </div>

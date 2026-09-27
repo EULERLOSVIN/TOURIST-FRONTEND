@@ -9,116 +9,165 @@
     </div>
 
     <div class="filter-wrapper d-flex justify-content-between align-items-center gap-3 flex-wrap mb-4">
+        <!-- 🏷️ Pestañas de Filtrado -->
         <div class="review-tabs d-flex gap-2 p-1 bg-white border rounded-pill shadow-xs">
-            <button class="btn btn-tab active rounded-pill px-3 py-1.5 small fw-bold">
-                Pendientes <span class="badge ms-1 count-badge bg-turquesa">5</span>
+            <button class="btn btn-tab rounded-pill px-3 py-1.5 small fw-bold"
+                [ngClass]="{'active': estadoSeleccionado === 'Pendiente'}"
+                (click)="cambiarEstado('Pendiente')">
+                Pendientes 
+                @if (estadoSeleccionado === 'Pendiente') {
+                    <span class="badge ms-1 count-badge bg-turquesa">{{ totalItems }}</span>
+                }
             </button>
-            <button class="btn btn-tab rounded-pill px-3 py-1.5 small fw-bold text-secondary">
+            <button class="btn btn-tab rounded-pill px-3 py-1.5 small fw-bold"
+                [ngClass]="{'active': estadoSeleccionado === 'Aprobado', 'text-secondary': estadoSeleccionado !== 'Aprobado'}"
+                (click)="cambiarEstado('Aprobado')">
                 Aprobadas
-            </button>
-            <button class="btn btn-tab rounded-pill px-3 py-1.5 small fw-bold text-secondary">
-                Spam / Rechazadas
+                @if (estadoSeleccionado === 'Aprobado') {
+                    <span class="badge ms-1 count-badge bg-turquesa">{{ totalItems }}</span>
+                }
             </button>
         </div>
 
+        <!-- 🔍 Buscador con Antirrebote -->
         <div class="search-input-container position-relative" style="width: 100%; max-width: 320px;">
             <i class="bi bi-search search-icon text-muted"></i>
             <input type="text" class="form-control search-control ps-5 py-2.5 shadow-none"
-                placeholder="Buscar por turista o lugar...">
+                placeholder="Buscar por turista o lugar..."
+                [(ngModel)]="filtros.searchTerm"
+                (input)="onSearchInput()">
         </div>
     </div>
 
+    <!-- 📋 Lista de Tarjetas Dinámicas -->
     <div class="reviews-stack d-flex flex-column gap-3">
 
-        <div class="review-card p-4 bg-white border rounded-4 shadow-sm">
-            <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+        @if (cargando) {
+            <div class="text-center p-5 bg-white border rounded-4 text-muted">
+                <div class="spinner-border text-turquesa mb-2" role="status"></div>
+                <span class="d-block small">Cargando reseñas...</span>
+            </div>
+        } @else {
+            @for (resena of resenas; track resena.idComment) {
+                <div class="review-card p-4 bg-white border rounded-4 shadow-sm">
+                    <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
 
-                <div class="d-flex gap-3">
-                    <div
-                        class="avatar-tourist text-white fw-bold rounded-circle d-flex align-items-center justify-content-center shadow-xs">
-                        AM
-                    </div>
-                    <div>
-                        <h6 class="m-0 fw-bold text-dark-green">Alejandro Morales</h6>
-                        <div class="text-warning small my-1">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <span class="text-muted small fw-medium ms-1">5.0</span>
+                        <div class="d-flex gap-3">
+                            <div class="avatar-tourist text-white fw-bold rounded-circle d-flex align-items-center justify-content-center shadow-xs">
+                                {{ obtenerIniciales(resena.nameUser) }}
+                            </div>
+                            <div>
+                                <h6 class="m-0 fw-bold text-dark-green">{{ resena.nameUser }}</h6>
+                                
+                                <!-- Render de Estrellas -->
+                                <div class="text-warning small my-1">
+                                    @for (star of [1,2,3,4,5]; track star) {
+                                        <i class="bi" [ngClass]="resena.qualification >= star ? 'bi-star-fill' : 'bi-star'"></i>
+                                    }
+                                    <span class="text-muted small fw-medium ms-1">{{ resena.qualification | number:'1.1-1' }}</span>
+                                </div>
+
+                                <span class="text-muted small">
+                                    En <span class="fw-semibold text-turquesa">{{ resena.placeName }}</span>
+                                    <span class="ms-1 text-secondary opacity-75">({{ resena.creationDate | date:'mediumDate' }})</span>
+                                </span>
+                            </div>
                         </div>
-                        <span class="text-muted small">Hace 10 minutos en <span
-                                class="fw-semibold text-turquesa">Catarata San Miguel</span></span>
-                    </div>
-                </div>
 
-                <div class="action-buttons d-flex gap-2">
-                    <button
-                        class="btn btn-moderation approve rounded-pill px-3 py-2 fw-semibold d-flex align-items-center gap-1">
-                        <i class="bi bi-check-circle-fill"></i> Aprobar
-                    </button>
-                    <button
-                        class="btn btn-moderation reject rounded-pill px-3 py-2 fw-semibold d-flex align-items-center gap-1">
-                        <i class="bi bi-x-circle-fill"></i> Rechazar
-                    </button>
-                </div>
-
-            </div>
-
-            <div class="review-body mt-3 pt-3 border-top">
-                <p class="text-secondary m-0">
-                    "La caminata hacia la catarata es un reto hermoso, pero llegar y ver la caída de agua paga
-                    absolutamente todo. El agua es helada pero muy refrescante. Totalmente recomendado si vienes a Tingo
-                    con espíritu de aventura."
-                </p>
-            </div>
-        </div>
-
-        <div class="review-card p-4 bg-white border rounded-4 shadow-sm">
-            <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
-
-                <div class="d-flex gap-3">
-                    <div class="avatar-tourist text-white fw-bold rounded-circle d-flex align-items-center justify-content-center shadow-xs"
-                        style="background-color: #4b5866;">
-                        LC
-                    </div>
-                    <div>
-                        <h6 class="m-0 fw-bold text-dark-green">Lucía Cáceres</h6>
-                        <div class="text-warning small my-1">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star"></i>
-                            <span class="text-muted small fw-medium ms-1">4.0</span>
+                        <!-- Botones de Acción -->
+                        <div class="action-buttons d-flex gap-2">
+                            @if (resena.idCommentState === 1) {
+                                <button class="btn btn-moderation approve rounded-pill px-3 py-2 fw-semibold d-flex align-items-center gap-1"
+                                    [disabled]="procesandoId === resena.idComment"
+                                    (click)="aprobarResena(resena.idComment)">
+                                    <i class="bi bi-check-circle-fill"></i> Aprobar
+                                </button>
+                            }
+                            <button class="btn btn-moderation reject rounded-pill px-3 py-2 fw-semibold d-flex align-items-center gap-1"
+                                [disabled]="procesandoId === resena.idComment"
+                                (click)="rechazarResena(resena.idComment)">
+                                <i class="bi bi-x-circle-fill"></i> Rechazar
+                            </button>
                         </div>
-                        <span class="text-muted small">Hace 2 horas en <span class="fw-semibold text-turquesa">La Bella
-                                Durmiente</span></span>
+
+                    </div>
+
+                    <div class="review-body mt-3 pt-3 border-top">
+                        <p class="text-secondary m-0">
+                            "{{ resena.commentText }}"
+                        </p>
                     </div>
                 </div>
-
-                <div class="action-buttons d-flex gap-2">
-                    <button
-                        class="btn btn-moderation approve rounded-pill px-3 py-2 fw-semibold d-flex align-items-center gap-1">
-                        <i class="bi bi-check-circle-fill"></i> Aprobar
-                    </button>
-                    <button
-                        class="btn btn-moderation reject rounded-pill px-3 py-2 fw-semibold d-flex align-items-center gap-1">
-                        <i class="bi bi-x-circle-fill"></i> Rechazar
-                    </button>
+            } @empty {
+                <div class="text-center p-5 bg-white border rounded-4 text-muted border-dashed">
+                    <i class="bi bi-chat-square-dots fs-2 text-turquesa d-block mb-2"></i>
+                    No hay reseñas {{ estadoSeleccionado === 'Pendiente' ? 'pendientes por revisar' : 'aprobadas en el sistema' }}.
                 </div>
-
-            </div>
-
-            <div class="review-body mt-3 pt-3 border-top">
-                <p class="text-secondary m-0">
-                    "Una vista icónica indispensable de fotografiar desde el mirador. Recomiendo ir por la tarde para
-                    agarrar el atardecer, la brisa de la selva se siente genial a esa hora."
-                </p>
-            </div>
-        </div>
+            }
+        }
 
     </div>
 
+    <!-- 📄 COMPONENTE DE PAGINACIÓN -->
+    @if (!cargando && totalPages > 1) {
+        <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top flex-wrap gap-2">
+            <span class="small text-muted">
+                Mostrando página <strong>{{ filtros.pageNumber }}</strong> de <strong>{{ totalPages }}</strong> (Total: {{ totalItems }} reseñas)
+            </span>
+
+            <nav>
+                <ul class="pagination pagination-sm m-0 gap-1">
+                    <li class="page-item" [class.disabled]="filtros.pageNumber === 1">
+                        <button class="page-link rounded-pill px-3" (click)="cambiarPagina(filtros.pageNumber - 1)">
+                            <i class="bi bi-chevron-left"></i> Anterior
+                        </button>
+                    </li>
+
+                    <li class="page-item" [class.disabled]="filtros.pageNumber === totalPages">
+                        <button class="page-link rounded-pill px-3" (click)="cambiarPagina(filtros.pageNumber + 1)">
+                            Siguiente <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+
 </div>
+
+<!-- 🚨 MODAL PERSONALIZADO DE ADVERTENCIA PARA RECHAZAR -->
+@if (mostrarModalConfirmacion) {
+  <div class="custom-modal-backdrop animate-fade-in">
+    <div class="custom-modal-content p-4 rounded-4 bg-white shadow-lg border border-light">
+      
+      <div class="text-center mb-3">
+        <div class="warning-icon-wrapper rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
+          <i class="bi bi-exclamation-triangle-fill text-danger fs-2"></i>
+        </div>
+        <h5 class="fw-extrabold text-dark-green m-0">¿Eliminar Reseña?</h5>
+        <p class="text-muted small mt-2 mb-0">
+          Esta acción eliminará de forma permanente la reseña de la base de datos SQL Server. ¿Deseas continuar?
+        </p>
+      </div>
+
+      <div class="d-flex gap-2 justify-content-center mt-4">
+        <button class="btn btn-light rounded-pill px-4 fw-semibold text-secondary"
+                (click)="cancelarRechazo()">
+          Cancelar
+        </button>
+        <button class="btn btn-danger-custom rounded-pill px-4 fw-semibold d-flex align-items-center gap-2"
+                [disabled]="procesandoId !== null"
+                (click)="confirmarRechazo()">
+          @if (procesandoId !== null) {
+            <span class="spinner-border spinner-border-sm" role="status"></span>
+            <span>Eliminando...</span>
+          } @else {
+            <i class="bi bi-trash3-fill"></i>
+            <span>Sí, Rechazar</span>
+          }
+        </button>
+      </div>
+
+    </div>
+  </div>
+}

@@ -1,7 +1,9 @@
 <div class="animate-fade-in" style="padding-top: 72px;">
   @if (destinoSeleccionado) {
   <section class="position-relative detail-hero d-flex align-items-end text-white pb-5">
-    <img [src]="destinoSeleccionado.imagen" [alt]="destinoSeleccionado.titulo" class="detail-hero-img">
+    <!-- 🚀 Sincronizado con galleryUrls -->
+    <img [src]="destinoSeleccionado.galleryUrls.length > 0 ? destinoSeleccionado.galleryUrls[0] : 'assets/img/placeholder.jpg'" 
+         [alt]="destinoSeleccionado.name" class="detail-hero-img">
     <div class="detail-overlay"></div>
 
     <div class="container position-relative z-1">
@@ -12,18 +14,17 @@
           </button>
 
           <div class="d-flex flex-wrap align-items-center gap-3">
-            <span class="badge d-inline-block px-3 py-2 rounded-pill fs-6"
-              [ngClass]="destinoSeleccionado.claseCategoria">
-              {{ destinoSeleccionado.categoria }}
+            <span class="badge d-inline-block px-3 py-2 rounded-pill fs-6 bg-success">
+              {{ destinoSeleccionado.categoryName }}
             </span>
             <button (click)="irAResenas(seccionResenas)" class="btn btn-link text-white text-decoration-none p-0 small">
               <i class="bi bi-chat-left-text-fill text-warning me-1"></i> Ver Reseñas
             </button>
           </div>
 
-          <h1 class="display-3 fw-bold text-shadow m-0 mt-2">{{ destinoSeleccionado.titulo }}</h1>
+          <h1 class="display-3 fw-bold text-shadow m-0 mt-2">{{ destinoSeleccionado.name }}</h1>
           <p class="fs-5 text-shadow mt-2 mb-0">
-            <i class="bi bi-geo-alt-fill me-1 text-danger"></i> {{ destinoSeleccionado.ubicacion }}
+            <i class="bi bi-geo-alt-fill me-1 text-danger"></i> {{ destinoSeleccionado.ubication }}
           </p>
         </div>
       </div>
@@ -35,15 +36,14 @@
       <div class="row g-5">
 
         <div class="col-12 col-lg-8">
-
           <h3 class="fw-bold text-dark-green mb-3">Sobre este destino</h3>
-          <p class="lead text-secondary mb-4">
-            {{ destinoSeleccionado.descripcionExtensa }}
+          <p class="lead text-secondary mb-4 text-justify">
+            {{ destinoSeleccionado.description }}
           </p>
 
           <h4 class="fw-bold text-dark-green mb-3">Galería de Fotos</h4>
           <div class="row g-3 mb-5">
-            @for (foto of destinoSeleccionado.galeria; track $index) {
+            @for (foto of destinoSeleccionado.galleryUrls; track $index) {
             <div class="col-4">
               <div class="overflow-hidden rounded-4 shadow-sm ratio ratio-4x3">
                 <img [src]="foto" alt="Foto de la galería" class="object-fit-cover w-100 h-100 img-thumbnail border-0">
@@ -53,10 +53,22 @@
           </div>
 
           <div class="p-4 border-start border-success border-4 bg-light rounded-end-4 mb-4">
-            <h5 class="fw-bold text-dark-green"><i class="bi bi-lightbulb-fill text-warning me-2"></i>Recomendaciones
-              indispensables</h5>
-            <p class="text-muted m-0 mt-2">{{ destinoSeleccionado.recomendaciones }}</p>
+            <h5 class="fw-bold text-dark-green">
+              <i class="bi bi-lightbulb-fill text-warning me-2"></i>Recomendaciones indispensables
+            </h5>
+            <p class="text-muted m-0 mt-2">{{ destinoSeleccionado.recommendations }}</p>
           </div>
+
+          @if (destinoSeleccionado.activities && destinoSeleccionado.activities.length > 0) {
+          <h4 class="fw-bold text-dark-green mb-3">Actividades Disponibles</h4>
+          <div class="d-flex flex-wrap gap-2 mb-5">
+            @for (actividad of destinoSeleccionado.activities; track $index) {
+            <span class="badge bg-light text-dark-green border px-3 py-2 rounded-pill">
+              <i class="bi bi-check2-circle me-1 text-success"></i> {{ actividad }}
+            </span>
+            }
+          </div>
+          }
         </div>
 
         <div class="col-12 col-lg-4">
@@ -65,37 +77,107 @@
             <hr class="my-3">
 
             <div class="mb-3">
-              <label class="text-muted small d-block fw-bold"><i class="bi bi-clock me-1"></i> Horario de
-                Atención:</label>
-              <span class="fw-medium text-dark">{{ destinoSeleccionado.horario }}</span>
+              <label class="text-muted small d-block fw-bold"><i class="bi bi-clock me-1"></i> Horario de Atención:</label>
+              <span class="fw-medium text-dark">
+                {{ destinoSeleccionado.businessHours }}
+              </span>
+            </div>
+
+            <div class="mb-3">
+              <label class="text-muted small d-block fw-bold"><i class="bi bi-cash-coin me-1"></i> Costo de Entrada:</label>
+              <div class="small mt-1">
+                <div class="d-flex justify-content-between">
+                  <span>Adultos:</span> <strong class="text-dark">S/. {{ destinoSeleccionado.costAdult | number:'1.2-2' }}</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Niños:</span> <strong class="text-dark">S/. {{ destinoSeleccionado.costChild | number:'1.2-2' }}</strong>
+                </div>
+              </div>
             </div>
 
             <div class="mb-4">
-              <label class="text-muted small d-block fw-bold"><i class="bi bi-shield-check me-1"></i> Estado del
-                Destino:</label>
+              <label class="text-muted small d-block fw-bold"><i class="bi bi-shield-check me-1"></i> Estado del Destino:</label>
               <span class="badge bg-success">Abierto al Público</span>
             </div>
-            <button class="btn btn-dark-green w-100 rounded-pill py-3 fw-bold">Ver ruta en Google Maps</button>
+            
+          <a [href]="destinoSeleccionado.linkGoogleMaps" target="_blank" class="btn btn-dark-green w-100 rounded-pill py-3 fw-bold text-center text-white text-decoration-none">
+              <i class="bi bi-box-arrow-up-right me-1"></i> Ver ruta en Google Maps
+            </a>
           </div>
         </div>
 
       </div>
 
+      <!-- SECCIÓN DE COMENTARIOS Y NUEVA OPINIÓN -->
       <div #seccionResenas class="row mt-5 pt-5 border-top">
-        <div class="col-12">
-          <h3 class="fw-bold text-dark-green mb-4"><i class="bi bi-star-fill text-warning me-2"></i>Opiniones de la
-            Comunidad</h3>
+        <div class="col-12 col-lg-7">
+          <h3 class="fw-bold text-dark-green mb-4">
+            <i class="bi bi-star-fill text-warning me-2"></i>Opiniones de la Comunidad
+          </h3>
 
+          @for (resena of destinoSeleccionado.comments; track resena.idComment) {
           <div class="card border-0 bg-light p-4 rounded-4 mb-3 shadow-sm">
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <strong class="text-dark">Euler M.</strong>
-              <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                  class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+              <strong class="text-dark">{{ resena.nameUser }}</strong>
+              <span class="text-warning">
+                @for (star of [].constructor(resena.qualification); track $index) {
+                  <i class="bi bi-star-fill"></i>
+                }
+              </span>
             </div>
-            <p class="text-muted m-0">¡Un lugar increíble de Tingo María! La maquetación del paisaje y la naturaleza te
-              dejan sin palabras. Súper recomendado visitar con toda la familia.</p>
+            <p class="text-muted m-0 text-justify">{{ resena.commentText }}</p>
+          </div>
+          } @empty {
+          <div class="text-center p-4 bg-light rounded-4 text-muted border border-dashed mb-3">
+            <i class="bi bi-chat-left-dots fs-3 d-block mb-2"></i> No hay opiniones todavía sobre este lugar. ¡Sé el primero en comentarlo abajo!
+          </div>
+          }
+        </div>
+
+        <!-- FORMULARIO INTERACTIVO PARA AGREGAR UN COMENTARIO NUEVO -->
+        <div class="col-12 col-lg-5">
+          <div class="card border border-2 rounded-4 p-4 bg-white shadow-sm mt-4 mt-lg-0">
+            <h4 class="fw-bold text-dark-green mb-2">Déjanos tu Experiencia</h4>
+            <p class="text-muted small mb-3">Tu puntuación ayudará a otros turistas de la comunidad a explorar Tingo María.</p>
+
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-secondary">Tu Nombre (Opcional)</label>
+              <input type="text" class="form-control rounded-3 py-2.5 shadow-none custom-input" 
+                     placeholder="Ej: Euler Martínez" [(ngModel)]="nuevoComentario.nameUser">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-secondary d-block mb-1">Calificación del Destino</label>
+              <div class="star-rating-selector fs-3 text-muted">
+                @for (estrella of [1,2,3,4,5]; track estrella) {
+                  <i class="bi style-pointer px-0.5 transition-all" 
+                     [ngClass]="nuevoComentario.qualification >= estrella ? 'bi-star-fill text-warning' : 'bi-star'"
+                     (click)="setCalificacion(estrella)"></i>
+                }
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label small fw-bold text-secondary">Tu Comentario u Opinión</label>
+              <!-- 🚀 CORREGIDO: Cambiado de nuevoComentario.commentText a nuevoComentario.comment -->
+              <textarea class="form-control rounded-4 p-3 shadow-none custom-input" rows="4" 
+                        placeholder="Cuéntanos sobre el paisaje, la ruta o la comida local..."
+                        [(ngModel)]="nuevoComentario.comment"></textarea>
+            </div>
+
+            <button class="btn btn-dark-green w-100 rounded-pill py-3 fw-bold d-flex align-items-center justify-content-center gap-2"
+                    [disabled]="enviandoComentario" (click)="enviarOpinion()">
+              @if (enviandoComentario) {
+                <div class="spinner-border spinner-border-sm text-light" role="status"></div>
+                <span>Publicando...</span>
+              } @else {
+                <i class="bi bi-send-fill"></i>
+                <span>Enviar Comentario</span>
+              }
+            </button>
           </div>
         </div>
+
       </div>
 
     </div>
